@@ -20,4 +20,12 @@ public class ResponseMessage {
     public static final String DB_ERROR = "데이터베이스 에러";
 
 
+    /** Store 관련*/
+    public static final String SAVE_STORE_BASIC_INFO = "store의 기본정보 저장 완료";
+
+    public static final String messageCode(String message, String additional){
+        return additional+" : " + message;
+    }
+
+
 }

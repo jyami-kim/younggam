@@ -2,6 +2,7 @@ package com.younggam.morethanchat.controller;
 
 import com.younggam.morethanchat.dto.LoginReqDto;
 import com.younggam.morethanchat.dto.ResponseDto;
+import com.younggam.morethanchat.service.LoginService;
 import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

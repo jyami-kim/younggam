@@ -1,62 +1,52 @@
 package com.younggam.morethanchat.domain;
 
-import com.younggam.morethanchat.dto.ProviderUserReqDto;
 import com.younggam.morethanchat.utils.DateConverter;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Getter
-@Setter
 @Entity
-@Builder
+@Builder(builderMethodName = "createBuilder")
+@AllArgsConstructor
 public class ProviderUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    private String name;
+    @NotNull
     private String email;
 
-    private String reqDate;
+    @NotNull
+    @Setter
+    @Column(name = "passwd")
+    private String passWd;
 
-    private String name;
-
-    private String passwd;
-
+    @NotNull
+    @Column(name="phone_num")
     private String phoneNum;
 
-    private String zipcode;
+    @Column(name="zipcode")
+    private String zipCode;
+
     private String address;
-    private String detailed_address;
+
+    @Column(name="detailed_address")
+    private String detailedAddress;
+
+    @Column(name="reg_date")
+    private String regDate;
 
     private int status;
 
     private ProviderUser() {
-        this.reqDate = DateConverter.getNowDate();
+        this.regDate = DateConverter.getNowDate();
         this.status = 1;
     }
-
-    public static ProviderUser of(ProviderUserReqDto providerUserReqDto) {
-        return new ProviderUser().builder()
-                .email(providerUserReqDto.getEmail())
-                .name(providerUserReqDto.getName())
-                .passwd(providerUserReqDto.getPasswd())
-                .address(providerUserReqDto.getAddress())
-                .detailed_address(providerUserReqDto.getDetailedAddress())
-                .phoneNum(providerUserReqDto.getDetailedAddress()).build();
-    }
-
-    public static ProviderUser of(ProviderUserReqDto providerUserReqDto, int status) {
-        return ProviderUser.of(providerUserReqDto).builder()
-                .status(status).build();
-    }
-
 
 }
 

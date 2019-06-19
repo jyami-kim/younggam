@@ -1,7 +1,7 @@
 package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.ProviderUser;
-import com.younggam.morethanchat.dto.ProviderUserReqDto;
+import com.younggam.morethanchat.dto.providerUser.ProviderUserReqDto;
 import com.younggam.morethanchat.exception.AlreadyUserException;
 import com.younggam.morethanchat.repository.ProviderUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +18,13 @@ public class ProviderUserService {
     private final ProviderUserRepository providerUserRepository;
 
     @Transactional
-    public void createUser(ProviderUserReqDto providerUserReqDto) throws AlreadyUserException {
-        ProviderUser providerUser = ProviderUser.of(providerUserReqDto);
+    public Long createUser(ProviderUserReqDto providerUserReqDto){
+        ProviderUser providerUser = providerUserReqDto.toEntity();
         checkUserIsAlreadyExisted(providerUser.getEmail());
-        String passwordHashed = BCrypt.hashpw(providerUser.getPasswd(), BCrypt.gensalt());
-        providerUser.setPasswd(passwordHashed);
-        providerUserRepository.save(providerUser);
+        String passwordHashed = BCrypt.hashpw(providerUser.getPassWd(), BCrypt.gensalt());
+        providerUser.setPassWd(passwordHashed);
+        providerUser = providerUserRepository.save(providerUser);
+        return providerUser.getId();
     }
 
     public Optional<ProviderUser> getUserById(long id) {
@@ -34,7 +35,7 @@ public class ProviderUserService {
         return checkUserIsAlreadyExisted(email);
     }
 
-    private ProviderUser checkUserIsAlreadyExisted(String email) throws AlreadyUserException {
+    private ProviderUser checkUserIsAlreadyExisted(String email){
         return providerUserRepository.findByEmail(email)
                 .orElseThrow(AlreadyUserException::new);
     }

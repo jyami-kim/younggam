@@ -19,7 +19,7 @@ public class LoginService {
     public String login(LoginReqDto loginReqDto) throws LoginFailException {
         ProviderUser providerUser = providerUserRepository.findByEmail(loginReqDto.getEmail())
                 .orElseThrow(LoginFailException::new);
-        if(!BCrypt.checkpw(loginReqDto.getPasswd(), providerUser.getPasswd()))
+        if(!BCrypt.checkpw(loginReqDto.getPasswd(), providerUser.getPassWd()))
             throw new LoginFailException();
         return jwtFactory.generateToken(providerUser);
 

@@ -26,11 +26,11 @@ public class ApiControllerAdvice {
         return ResponseDto.of(HttpStatus.ALREADY_REPORTED, ResponseMessage.ALREADY_EXISTED_USER);
     }
 
-    @ExceptionHandler(AlreadyUserException.class)
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseDto LoginFailException() {
-        return ResponseDto.of(HttpStatus.NO_CONTENT, ResponseMessage.LOGIN_FAIL);
-    }
+//    @ExceptionHandler(AlreadyUserException.class)
+//    @ResponseStatus(HttpStatus.OK)
+//    public ResponseDto LoginFailException() {
+//        return ResponseDto.of(HttpStatus.NO_CONTENT, ResponseMessage.LOGIN_FAIL);
+//    }
 
 
 }
