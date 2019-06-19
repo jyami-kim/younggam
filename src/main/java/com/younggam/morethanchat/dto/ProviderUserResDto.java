@@ -10,7 +10,12 @@ import lombok.NoArgsConstructor;
 public class ProviderUserResDto {
     private Long id;
     private String email;
+    private String name;
     private String passwd;
     private String phoneNum;
-    private String registerDate;
+    private String reqDate;
+    private String zipcode;
+    private String address;
+    private String detailedAddress;
+    private int status;
 }

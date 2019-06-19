@@ -10,5 +10,9 @@ import lombok.NoArgsConstructor;
 public class ProviderUserReqDto {
     private String email;
     private String passwd;
+    private String name;
     private String phoneNum;
+    private String zipcode;
+    private String address;
+    private String detailedAddress;
 }

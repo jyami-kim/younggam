@@ -1,8 +1,8 @@
 package com.younggam.morethanchat.domain;
 
 import com.younggam.morethanchat.dto.ProviderUserReqDto;
-import com.younggam.morethanchat.dto.ProviderUserResDto;
 import com.younggam.morethanchat.utils.DateConverter;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,6 +14,7 @@ import javax.persistence.Id;
 @Getter
 @Setter
 @Entity
+@Builder
 public class ProviderUser {
 
     @Id
@@ -22,21 +23,40 @@ public class ProviderUser {
 
     private String email;
 
+    private String reqDate;
+
+    private String name;
+
     private String passwd;
 
     private String phoneNum;
 
-    private String registerDate;
+    private String zipcode;
+    private String address;
+    private String detailed_address;
 
-    private ProviderUser(String email, String passwd, String phoneNum){
-        this.email = email;
-        this.passwd = passwd;
-        this.phoneNum = phoneNum;
-        this.registerDate = DateConverter.getNowDate();
+    private int status;
+
+    private ProviderUser() {
+        this.reqDate = DateConverter.getNowDate();
+        this.status = 1;
     }
 
-    public static ProviderUser of(ProviderUserReqDto providerUserReqDto){
-        return new ProviderUser(providerUserReqDto.getEmail(), providerUserReqDto.getPasswd(), providerUserReqDto.getPhoneNum());
+    public static ProviderUser of(ProviderUserReqDto providerUserReqDto) {
+        return new ProviderUser().builder()
+                .email(providerUserReqDto.getEmail())
+                .name(providerUserReqDto.getName())
+                .passwd(providerUserReqDto.getPasswd())
+                .address(providerUserReqDto.getAddress())
+                .detailed_address(providerUserReqDto.getDetailedAddress())
+                .phoneNum(providerUserReqDto.getDetailedAddress()).build();
     }
+
+    public static ProviderUser of(ProviderUserReqDto providerUserReqDto, int status) {
+        return ProviderUser.of(providerUserReqDto).builder()
+                .status(status).build();
+    }
+
+
 }
 

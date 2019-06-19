@@ -2,7 +2,6 @@ package com.younggam.morethanchat.controller;
 
 import com.younggam.morethanchat.dto.ProviderUserReqDto;
 import com.younggam.morethanchat.dto.ResponseDto;
-import com.younggam.morethanchat.dto.TokenDto;
 import com.younggam.morethanchat.exception.AlreadyUserException;
 import com.younggam.morethanchat.service.ProviderUserService;
 import com.younggam.morethanchat.utils.ResponseMessage;
@@ -18,12 +17,8 @@ public class ProviderUserController {
     private final ProviderUserService providerUserService;
 
     @PostMapping("")
-    public ResponseDto signUp(@RequestBody ProviderUserReqDto providerUserReqDto) {
-        try {
+    public ResponseDto signUp(@RequestBody ProviderUserReqDto providerUserReqDto) throws AlreadyUserException {
             providerUserService.createUser(providerUserReqDto);
-        } catch (AlreadyUserException e) {
-            return ResponseDto.of(HttpStatus.ALREADY_REPORTED, e.getMessage());
-        }
         return ResponseDto.of(HttpStatus.OK, ResponseMessage.CREATED_USER);
     }
 

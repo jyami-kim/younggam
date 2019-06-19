@@ -1,10 +1,27 @@
 package com.younggam.morethanchat.service;
 
+import com.younggam.morethanchat.domain.ProviderUser;
 import com.younggam.morethanchat.dto.LoginReqDto;
-import com.younggam.morethanchat.dto.ProviderUserReqDto;
-import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.exception.LoginFailException;
+import com.younggam.morethanchat.repository.ProviderUserRepository;
+import com.younggam.morethanchat.utils.JwtFactory;
+import lombok.RequiredArgsConstructor;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
-public interface LoginService {
-    String login(LoginReqDto loginReqDto) throws LoginFailException;
+@Service
+@RequiredArgsConstructor
+public class LoginService {
+
+    private final ProviderUserRepository providerUserRepository;
+    private final JwtFactory jwtFactory;
+
+    public String login(LoginReqDto loginReqDto) throws LoginFailException {
+        ProviderUser providerUser = providerUserRepository.findByEmail(loginReqDto.getEmail())
+                .orElseThrow(LoginFailException::new);
+        if(!BCrypt.checkpw(loginReqDto.getPasswd(), providerUser.getPasswd()))
+            throw new LoginFailException();
+        return jwtFactory.generateToken(providerUser);
+
+    }
 }
