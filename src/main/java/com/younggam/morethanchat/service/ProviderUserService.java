@@ -31,13 +31,10 @@ public class ProviderUserService {
         return providerUserRepository.findById(id);
     }
 
-    public ProviderUser checkEmailExist(String email) throws AlreadyUserException {
-        return checkUserIsAlreadyExisted(email);
-    }
-
-    private ProviderUser checkUserIsAlreadyExisted(String email){
-        return providerUserRepository.findByEmail(email)
-                .orElseThrow(AlreadyUserException::new);
+    private void checkUserIsAlreadyExisted(String email){
+        Optional<ProviderUser> byEmail = providerUserRepository.findByEmail(email);
+        if(byEmail.isPresent())
+            throw new AlreadyUserException();
     }
 
     public void sendPasswordEmail(String email) {

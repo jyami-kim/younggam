@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import static com.younggam.morethanchat.utils.DateConverter.getNowDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -26,6 +28,7 @@ public class ProviderUserReqDto {
                 .zipCode(this.zipCode)
                 .address(this.address)
                 .detailedAddress(this.detailedAddress)
+                .regDate(getNowDate())
                 .build();
     }
 }

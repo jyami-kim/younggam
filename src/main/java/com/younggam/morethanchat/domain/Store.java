@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Store {
     //TODO: 여기 확인하기
 
@@ -52,7 +53,7 @@ public class Store {
     @Column(name="reg_date")
     private String regDate;
 
-    @UniqueElements
+//    @UniqueElements
     @Column(name="bot_id")
     private String botId;
 

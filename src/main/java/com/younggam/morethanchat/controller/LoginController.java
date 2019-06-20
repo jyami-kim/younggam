@@ -21,11 +21,6 @@ public class LoginController {
     @PostMapping("login")
     public ResponseDto login(@RequestBody LoginReqDto loginReqDto) {
         log.info(loginReqDto.getEmail());
-        try {
-            return ResponseDto.of(HttpStatus.OK, ResponseMessage.LOGIN_SUCCESS, loginService.login(loginReqDto));
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            return ResponseDto.of(HttpStatus.NO_CONTENT, e.getMessage());
-        }
+        return ResponseDto.of(HttpStatus.OK, ResponseMessage.LOGIN_SUCCESS, loginService.login(loginReqDto));
     }
 }

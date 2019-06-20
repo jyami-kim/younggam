@@ -20,13 +20,13 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-        log.info(request.getHeader("authorization"));
+        log.info(request.getHeader("Authorization"));
 
-        String token = request.getHeader("authorization");
-        Long id = this.jwtFactory.getUserId(token)
+        String token = request.getHeader("Authorization");
+        Long providerId = this.jwtFactory.getUserId(token)
                 .orElseThrow(UnauthorizedException::new);
 
-        request.setAttribute("id", id);
+        request.setAttribute("providerId", providerId);
 
         return super.preHandle(request, response, handler);
     }
