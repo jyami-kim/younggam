@@ -1,7 +1,7 @@
 package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.ProviderUser;
-import com.younggam.morethanchat.dto.LoginReqDto;
+import com.younggam.morethanchat.dto.providerUser.LoginReqDto;
 import com.younggam.morethanchat.exception.LoginFailException;
 import com.younggam.morethanchat.repository.ProviderUserRepository;
 import com.younggam.morethanchat.utils.JwtFactory;

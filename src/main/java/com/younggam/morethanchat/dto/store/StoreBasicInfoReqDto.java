@@ -30,8 +30,8 @@ public class StoreBasicInfoReqDto {
     private String botImage;
 
     public Store toEntity(ProviderUser providerUser) {
-        return Store.createBuilder()
-                .provideruser(providerUser)
+        return Store.builder()
+                .providerUser(providerUser)
                 .name(this.name)
                 .description(this.description)
                 .phoneNum(this.phoneNum)

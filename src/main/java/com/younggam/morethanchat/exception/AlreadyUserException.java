@@ -6,4 +6,8 @@ public class AlreadyUserException extends RuntimeException{
     public AlreadyUserException() {
         super(ResponseMessage.ALREADY_EXISTED_USER);
     }
+
+    public AlreadyUserException(String message) {
+        super(message);
+    }
 }

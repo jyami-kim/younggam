@@ -1,4 +1,4 @@
-package com.younggam.morethanchat.dto;
+package com.younggam.morethanchat.dto.providerUser;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

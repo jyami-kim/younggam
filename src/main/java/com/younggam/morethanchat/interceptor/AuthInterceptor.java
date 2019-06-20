@@ -1,6 +1,8 @@
 package com.younggam.morethanchat.interceptor;
 
+import com.younggam.morethanchat.domain.ProviderUser;
 import com.younggam.morethanchat.exception.UnauthorizedException;
+import com.younggam.morethanchat.repository.ProviderUserRepository;
 import com.younggam.morethanchat.utils.JwtFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
         String token = request.getHeader("Authorization");
         Long providerId = this.jwtFactory.getUserId(token)
                 .orElseThrow(UnauthorizedException::new);
+
 
         request.setAttribute("providerId", providerId);
 

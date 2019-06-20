@@ -23,9 +23,20 @@ public class ResponseMessage {
     /** Store 관련*/
     public static final String SAVE_STORE_BASIC_INFO = "store의 기본정보 저장 완료";
 
+    public static final String STORE_BASIC_INFO_IS_ALREADY_EXIST = "챗봇에 대한 기본정보가 이미 존재합니다. 기본정보 수정을 이용하세요";
+
+
+    /**
+     * chatBot 관련
+     */
+
+    public static final String CHATBOT_CATEGORY_IS_NOT_VALID = "지정한 카테고리의 숫자가 올바르지 않은 값입니다.";
+
+    public static final String SAVE_CHATBOT_MESSAGE = "챗봇메세지를 등록하였습니다.";
+
+
     public static final String messageCode(String message, String additional){
         return additional+" : " + message;
     }
-
 
 }
