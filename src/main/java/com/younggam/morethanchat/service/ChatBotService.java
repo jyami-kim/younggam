@@ -6,6 +6,8 @@ import com.younggam.morethanchat.dto.chatBot.ChatBotMessageSaveReqDto;
 import com.younggam.morethanchat.exception.NotFoundUserException;
 import com.younggam.morethanchat.mapper.ChatBotMapper;
 import com.younggam.morethanchat.mapper.ProviderUserMapper;
+import com.younggam.morethanchat.repository.ChatBotRepository;
+import com.younggam.morethanchat.repository.ProviderUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ public class ChatBotService {
 
     private final ChatBotMapper chatBotMapper;
     private final ProviderUserMapper providerUserMapper;
+    private final ChatBotRepository chatBotRepository;
 //    private final
 
     @Transactional
@@ -32,7 +35,7 @@ public class ChatBotService {
         }
         ChatBot newChatBot = chatBotMessageSaveReqDto.toEntity(providerUser);
         newChatBot.validateCategory();
-        newChatBot = chatBotMapper.save(newChatBot);
+        newChatBot = chatBotRepository.save(newChatBot);
         return newChatBot.getId();
     }
 

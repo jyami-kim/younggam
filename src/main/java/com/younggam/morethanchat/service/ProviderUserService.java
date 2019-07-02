@@ -3,6 +3,7 @@ package com.younggam.morethanchat.service;
 import com.younggam.morethanchat.domain.ProviderUser;
 import com.younggam.morethanchat.dto.providerUser.ProviderUserReqDto;
 import com.younggam.morethanchat.exception.AlreadyUserException;
+import com.younggam.morethanchat.mapper.ProviderUserMapper;
 import com.younggam.morethanchat.repository.ProviderUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class ProviderUserService {
 
     private final ProviderUserRepository providerUserRepository;
+    private final ProviderUserMapper providerUserMapper;
 
     @Transactional
     public Long createUser(ProviderUserReqDto providerUserReqDto){
@@ -32,7 +34,7 @@ public class ProviderUserService {
     }
 
     private void checkUserIsAlreadyExisted(String email){
-        Optional<ProviderUser> byEmail = providerUserRepository.findByEmail(email);
+        Optional<ProviderUser> byEmail = providerUserMapper.findByEmail(email);
         if(byEmail.isPresent())
             throw new AlreadyUserException();
     }

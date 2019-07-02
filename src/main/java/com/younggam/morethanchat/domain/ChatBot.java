@@ -4,6 +4,7 @@ import com.younggam.morethanchat.exception.NotValidateTypeException;
 import lombok.*;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -14,6 +15,7 @@ import static com.younggam.morethanchat.utils.ResponseMessage.CHATBOT_CATEGORY_I
 @Table(name = "chatbot")
 @AllArgsConstructor
 @Builder
+@Entity
 public class ChatBot {
     @NotNull
     private Long id;
