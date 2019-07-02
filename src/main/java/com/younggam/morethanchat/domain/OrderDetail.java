@@ -1,26 +1,28 @@
 package com.younggam.morethanchat.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Entity
 @Getter
-@Setter
+@NoArgsConstructor
+@Table(name = "order_detail")
+@AllArgsConstructor
 public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id", nullable = false, updatable = false)
-    private OrderSheet orderId;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false, updatable = false)
-    private Product productId;
-
+    @NotNull
+    @Column(name = "order_id")
+    private String orderId;
+    @NotNull
+    @Column(name = "product_id")
+    private String productId;
+    @NotNull
     private int amount;
+    @NotNull
     private int payment;
 }

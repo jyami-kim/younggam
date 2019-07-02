@@ -7,21 +7,14 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@Setter
-@Entity
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
 public class Store {
 
-    @Id
+    @NotNull
     @Column(name="provider_id")
     private Long providerId;
-
-    @OneToOne
-    @JoinColumn(name = "provider_id")
-    @MapsId
-    private ProviderUser providerUser;
 
     @NotNull
     private String name;
@@ -52,15 +45,18 @@ public class Store {
 
     private String longitude;
 
+    @NotNull
     @Column(name="reg_date")
     private String regDate;
 
     @Column(name="bot_id", unique = true)
     private String botId;
 
+    @NotNull
     @Column(name="bot_intro")
     private String botIntro;
 
+    @NotNull
     @Column(name="bot_image")
     private String botImage;
 

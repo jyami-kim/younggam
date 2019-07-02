@@ -1,4 +1,4 @@
-package com.younggam.morethanchat.domain;
+package com.younggam.morethanchat.domain.extend;
 
 import lombok.Getter;
 import lombok.Setter;

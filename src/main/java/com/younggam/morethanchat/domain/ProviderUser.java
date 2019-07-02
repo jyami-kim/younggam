@@ -1,25 +1,31 @@
 package com.younggam.morethanchat.domain;
 
 import com.younggam.morethanchat.utils.DateConverter;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
-@Getter
 @Entity
 @Builder(builderMethodName = "createBuilder")
+@Getter
+@Table(name = "provider_user")
 @AllArgsConstructor
 public class ProviderUser {
-
+    @NotNull
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     private String name;
     @NotNull
+    @Column(unique = true)
     private String email;
 
     @NotNull
@@ -28,25 +34,27 @@ public class ProviderUser {
     private String passWd;
 
     @NotNull
-    @Column(name="phone_num")
+    @Column(name = "phone_num")
     private String phoneNum;
 
-    @Column(name="zipcode")
+    @Column(name = "zipcode")
     private String zipCode;
 
     private String address;
 
-    @Column(name="detailed_address")
+    @NotNull
+    @Column(name = "detailed_address")
     private String detailedAddress;
 
-    @Column(name="reg_date")
+    @NotNull
+    @Column(name = "reg_date")
     private String regDate;
 
-    private int status;
+    private boolean status;
 
     private ProviderUser() {
         this.regDate = DateConverter.getNowDate();
-        this.status = 1;
+        this.status = true;
     }
 
 }

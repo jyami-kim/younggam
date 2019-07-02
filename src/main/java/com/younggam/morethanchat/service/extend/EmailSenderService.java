@@ -1,13 +1,4 @@
-package com.younggam.morethanchat.service;
-
-import com.younggam.morethanchat.domain.Email;
-import lombok.RequiredArgsConstructor;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
-
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
-
+package com.younggam.morethanchat.service.extend;
 
 //@RequiredArgsConstructor
 //@Service
