@@ -23,12 +23,14 @@ public class ChatBotService {
     private final ChatBotMapper chatBotMapper;
     private final ProviderUserMapper providerUserMapper;
     private final ChatBotRepository chatBotRepository;
-//    private final
 
+    //TODO: 여기 providerID가 안먹음
     @Transactional
     public Long saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
         ProviderUser providerUser = providerUserMapper.findById(providerId).orElseThrow(NotFoundUserException::new);
-        Optional<ChatBot> previousCatBot = chatBotMapper.findByCategoryAndProviderUser(chatBotMessageSaveReqDto.getCategory(), providerUser);
+        log.info(providerId+"");
+        log.info(providerUser+"");
+        Optional<ChatBot> previousCatBot = chatBotMapper.findByCategoryAndProviderUser(chatBotMessageSaveReqDto.getCategory(), providerId);
         if (previousCatBot.isPresent()) {
             previousCatBot.get().setMessage(chatBotMessageSaveReqDto.getMessage());
             return previousCatBot.get().getId();

@@ -23,6 +23,5 @@ public class ChatBotController {
     public ResponseDto chatBotMessageSet(@RequestAttribute Long providerId, @RequestBody ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
         Long messageSetId = chatBotService.saveChatBotMessage(providerId, chatBotMessageSaveReqDto);
         return ResponseDto.of(HttpStatus.OK, messageCode(SAVE_CHATBOT_MESSAGE, messageSetId.toString()));
-
     }
 }

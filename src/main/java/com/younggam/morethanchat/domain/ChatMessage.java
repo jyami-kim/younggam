@@ -13,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "chat_message")
 @AllArgsConstructor
 public class ChatMessage {
-    @NotNull
     private Long id;
     @NotNull
     @Column(name = "chatroom_code")

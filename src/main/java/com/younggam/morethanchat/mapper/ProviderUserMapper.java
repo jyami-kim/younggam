@@ -12,6 +12,6 @@ public interface ProviderUserMapper {
     @Select("SELECT * FROM provider_user WHERE email = #{email}")
     Optional<ProviderUser> findByEmail(@Param("email") final String email);
 
-    @Select("SELECT FROM provider_user WHERE id = #{id}")
+    @Select("SELECT * FROM provider_user WHERE id = #{id}")
     Optional<ProviderUser> findById(@Param("id") final Long id);
 }

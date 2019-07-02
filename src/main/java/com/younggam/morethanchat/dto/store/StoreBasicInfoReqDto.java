@@ -24,7 +24,7 @@ public class StoreBasicInfoReqDto {
     private String reservationStart;
     private String reservationEnd;
 
-    private int earlyReservation;
+    private boolean earlyReservation;
 
     private String botIntro;
     private String botImage;

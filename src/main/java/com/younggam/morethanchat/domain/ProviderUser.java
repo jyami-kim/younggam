@@ -6,10 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -18,8 +15,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "provider_user")
 @AllArgsConstructor
 public class ProviderUser {
-    @NotNull
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

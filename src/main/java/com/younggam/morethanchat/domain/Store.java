@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -18,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class Store {
 
     @Id
-    @NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "provider_id")
     private Long providerId;
 
@@ -45,7 +43,7 @@ public class Store {
     private String reservationEnd;
 
     @Column(name = "early_reservation")
-    private int earlyReservation;
+    private boolean earlyReservation;
 
     private String latitude;
 
