@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Store {
 
+    @Id
     @NotNull
     @Column(name = "provider_id")
     private Long providerId;

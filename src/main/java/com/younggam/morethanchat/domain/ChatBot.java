@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -18,6 +19,7 @@ import static com.younggam.morethanchat.utils.ResponseMessage.CHATBOT_CATEGORY_I
 @Entity
 public class ChatBot {
     @NotNull
+    @Id
     private Long id;
     @NotNull
     @Column(name = "provider_id")
