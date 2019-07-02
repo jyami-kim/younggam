@@ -1,4 +1,4 @@
-package com.younggam.morethanchat;
+package com.younggam.morethanchat.domain;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,9 +11,12 @@ import javax.persistence.*;
 public class OrderSheet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order_management")
+    @PrimaryKeyJoinColumn
     private Long id;
 
-    @Column(name="chatroom_code")
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false, updatable = false)
     private ChatRoom chatRoomCode;
 
     @Column(name="total_payment")

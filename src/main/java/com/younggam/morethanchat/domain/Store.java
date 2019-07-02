@@ -55,8 +55,7 @@ public class Store {
     @Column(name="reg_date")
     private String regDate;
 
-//    @UniqueElements
-    @Column(name="bot_id")
+    @Column(name="bot_id", unique = true)
     private String botId;
 
     @Column(name="bot_intro")
