@@ -3,33 +3,36 @@ package com.younggam.morethanchat.domain;
 import com.younggam.morethanchat.exception.NotValidateTypeException;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import static com.younggam.morethanchat.utils.ResponseMessage.CHATBOT_CATEGORY_IS_NOT_VALID;
 
 @Getter
-@Entity
 @NoArgsConstructor
 @Table(name = "chatbot")
-@Builder
 @AllArgsConstructor
+@Builder
+@Entity
 public class ChatBot {
-
+    @NotNull
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "provider_id")
-    private ProviderUser providerUser;
-
-    private int category;
-
+    @NotNull
+    @Column(name = "provider_id")
+    private Long provider_id;
+    @NotNull
+    private String category;
     @Setter
+    @NotNull
     private String message;
 
-    public void validateCategory(){
-        if (!(category == 1 || category == 2 || category == 3)) {
+    public void validateCategory() {
+        // TODO : ENUM 만들어서 validate 처리하기
+        if (category.isEmpty()) {
             throw new NotValidateTypeException(CHATBOT_CATEGORY_IS_NOT_VALID);
         }
     }

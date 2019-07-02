@@ -31,7 +31,7 @@ public class StoreBasicInfoReqDto {
 
     public Store toEntity(ProviderUser providerUser) {
         return Store.builder()
-                .providerUser(providerUser)
+                .providerId(providerUser.getId())
                 .name(this.name)
                 .description(this.description)
                 .phoneNum(this.phoneNum)

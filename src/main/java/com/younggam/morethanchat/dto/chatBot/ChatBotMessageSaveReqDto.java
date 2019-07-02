@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @NoArgsConstructor
 public class ChatBotMessageSaveReqDto {
 
-    private int category;
+    private String category;
     private String message;
 
     //초기 등록시
@@ -20,7 +20,7 @@ public class ChatBotMessageSaveReqDto {
         return ChatBot.builder()
                 .category(this.category)
                 .message(this.message)
-                .providerUser(providerUser)
+                .provider_id(providerUser.getId())
                 .build();
     }
 

@@ -1,41 +1,35 @@
 package com.younggam.morethanchat.domain;
 
-import com.younggam.morethanchat.domain.ProviderUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-@Entity
 @Getter
-@Setter
+@NoArgsConstructor
+@Table(name = "product")
 @AllArgsConstructor
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name ="provider_id")
-    private ProviderUser providerId;
+    @Column(name = "provider_id")
+    @NotNull
+    private Long provider_id;
 
+    @NotNull
     private String name;
 
     private String description;
 
+    @NotNull
     private int price;
-
     private int stock;
-
+    @NotNull
     private String image;
-
-    @Column(name="is_fixed")
-    private int isFixed;
-
-    @Column(name="reg_date")
-    private String regDate;
-
-    @Column(name="recent_reg_date")
-    private String recentRegDate;
-
+    @NotNull
+    @Column(name = "is_fixed")
+    private boolean is_fixed;
 }

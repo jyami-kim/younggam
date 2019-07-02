@@ -1,67 +1,69 @@
 package com.younggam.morethanchat.domain;
 
-import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Getter
-@Setter
-@Entity
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
+@Entity
 public class Store {
 
     @Id
-    @Column(name="provider_id")
+    @NotNull
+    @Column(name = "provider_id")
     private Long providerId;
-
-    @OneToOne
-    @JoinColumn(name = "provider_id")
-    @MapsId
-    private ProviderUser providerUser;
 
     @NotNull
     private String name;
 
     private String description;
 
-    @Column(name="phone_num")
+    @Column(name = "phone_num")
     private String phoneNum;
 
     private String address;
 
-    @Column(name="detailed_address")
+    @Column(name = "detailed_address")
     private String detailedAddress;
 
-    @Column(name="business_day")
+    @Column(name = "business_day")
     private String businessDay;
 
-    @Column(name="reservation_start")
+    @Column(name = "reservation_start")
     private String reservationStart;
 
-    @Column(name="reservation_end")
+    @Column(name = "reservation_end")
     private String reservationEnd;
 
-    @Column(name="early_reservation")
+    @Column(name = "early_reservation")
     private int earlyReservation;
 
     private String latitude;
 
     private String longitude;
 
-    @Column(name="reg_date")
+    @NotNull
+    @Column(name = "reg_date")
     private String regDate;
 
-    @Column(name="bot_id", unique = true)
+    @Column(name = "bot_id", unique = true)
     private String botId;
 
-    @Column(name="bot_intro")
+    @NotNull
+    @Column(name = "bot_intro")
     private String botIntro;
 
-    @Column(name="bot_image")
+    @NotNull
+    @Column(name = "bot_image")
     private String botImage;
 
 }

@@ -1,22 +1,28 @@
 package com.younggam.morethanchat.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Entity
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+
+@Getter
+@NoArgsConstructor
+@Table(name = "chatroom")
+@AllArgsConstructor
 public class ChatRoom {
-    @Column()
+    @NotNull
+    @Column(name = "chatroom_code")
     private String chatRoomCode;
-
-    @Column()
-    private CustomerUser customerUserId;
-
-    @Column()
-    @ManyToOne()
-    @JoinColumn()
-    private ProviderUser providerUserId;
-
+    @NotNull
+    @Column(unique = true, name = "customer_id")
+    private Long customerId;
+    @NotNull
+    @Column(name = "provider_id")
+    private Long providerId;
+    @NotNull
+    @Column(name = "reg_date")
     private String regDate;
 }

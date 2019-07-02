@@ -14,10 +14,10 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @GetMapping("main")
-    public ResponseDto getMainOrderList(@RequestAttribute Long providerId, @RequestParam(required = false) String searchDate) {
-        orderService.getMainOrderList(providerId, searchDate);
-    }
+//    @GetMapping("main")
+//    public ResponseDto getMainOrderList(@RequestAttribute Long providerId, @RequestParam(required = false) String searchDate) {
+//        orderService.getMainOrderList(providerId, searchDate);
+//    }
 
 
 }

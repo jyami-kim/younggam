@@ -10,19 +10,21 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
-@Table(name = "order_management")
+@Table(name = "chat_message")
 @AllArgsConstructor
-public class OrderSheet {
+public class ChatMessage {
     @NotNull
     private Long id;
     @NotNull
     @Column(name = "chatroom_code")
-    private String chatroomCode;
+    private String chatRoomCode;
     @NotNull
-    @Column(name = "total_payment")
-    private int totalPayment;
-    @Column(name = "payment_method")
-    private String paymentMethod;
-    @Column(name = "remitter_name")
-    private String remitterName;
+    private boolean writer;
+    @NotNull
+    @Column(name = "chat_message")
+    private String chatMessage;
+    @NotNull
+    @Column(name = "written_date")
+    private String writtenDate;
+
 }

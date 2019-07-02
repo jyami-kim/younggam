@@ -4,7 +4,8 @@ import com.younggam.morethanchat.domain.ChatBot;
 import com.younggam.morethanchat.domain.ProviderUser;
 import com.younggam.morethanchat.dto.chatBot.ChatBotMessageSaveReqDto;
 import com.younggam.morethanchat.exception.NotFoundUserException;
-import com.younggam.morethanchat.exception.NotValidateTypeException;
+import com.younggam.morethanchat.mapper.ChatBotMapper;
+import com.younggam.morethanchat.mapper.ProviderUserMapper;
 import com.younggam.morethanchat.repository.ChatBotRepository;
 import com.younggam.morethanchat.repository.ProviderUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +20,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ChatBotService {
 
+    private final ChatBotMapper chatBotMapper;
+    private final ProviderUserMapper providerUserMapper;
     private final ChatBotRepository chatBotRepository;
-    private final ProviderUserRepository providerUserRepository;
+//    private final
 
     @Transactional
-    public Long saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto){
-        ProviderUser providerUser = providerUserRepository.findById(providerId).orElseThrow(NotFoundUserException::new);
-        Optional<ChatBot> previousCatBot = chatBotRepository.findByCategoryAndProviderUser(chatBotMessageSaveReqDto.getCategory(), providerUser);
+    public Long saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
+        ProviderUser providerUser = providerUserMapper.findById(providerId).orElseThrow(NotFoundUserException::new);
+        Optional<ChatBot> previousCatBot = chatBotMapper.findByCategoryAndProviderUser(chatBotMessageSaveReqDto.getCategory(), providerUser);
         if (previousCatBot.isPresent()) {
             previousCatBot.get().setMessage(chatBotMessageSaveReqDto.getMessage());
             return previousCatBot.get().getId();
