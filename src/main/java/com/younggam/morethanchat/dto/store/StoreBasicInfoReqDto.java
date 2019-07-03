@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Random;
 
-import static com.younggam.morethanchat.utils.DateConverter.getNowDate;
+import static com.younggam.morethanchat.utils.DateConverter.getNowAllDate;
 
 @Getter
 @AllArgsConstructor
@@ -42,7 +42,7 @@ public class StoreBasicInfoReqDto {
                 .botId(this.name + new Random().nextInt(100)) //초기 생성시 botID는 랜덤값으로 부여! 이후 bot 생성하기에서 fix하기
                 .botIntro(this.botIntro)
                 .botImage(this.botImage)
-                .regDate(getNowDate())
+                .regDate(getNowAllDate())
                 .build();
 
     }

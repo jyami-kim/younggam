@@ -50,7 +50,7 @@ public class ProviderUser {
     private boolean status;
 
     private ProviderUser() {
-        this.regDate = DateConverter.getNowDate();
+        this.regDate = DateConverter.getNowAllDate();
         this.status = true;
     }
 

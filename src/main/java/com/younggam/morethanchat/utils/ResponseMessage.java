@@ -1,6 +1,13 @@
 package com.younggam.morethanchat.utils;
 
 public class ResponseMessage {
+
+
+    public static final String messageCode(String message, String additional){
+        return additional+" : " + message;
+    }
+
+
     public static final String READ_USER = "회원 정보 조회 성공";
     public static final String NOT_FOUND_USER = "회원을 찾을 수 없습니다.";
     public static final String ALREADY_EXISTED_USER = "이미 존재하는 email 입니다.";
@@ -41,8 +48,11 @@ public class ResponseMessage {
 
     public static final String PRODUCT_IS_EMPTY_IN_DATE = "해당 날짜에는 상품이 없습니다. 상품을 등록해주세요";
 
-    public static final String messageCode(String message, String additional){
-        return additional+" : " + message;
-    }
+    /**
+     * order 관련
+     */
+
+    public static final String GET_ORDER_LIST_SUCCESS = "날짜에 맞는 orderlist 조회 성공";
+
 
 }
