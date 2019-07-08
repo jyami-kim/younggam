@@ -7,7 +7,6 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
 import com.younggam.morethanchat.domain.ProviderUser;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,23 @@ public class JwtFactory {
     public static final String HEADER_PREFIX = "EROMTHAN";
     @Value("${JWT.tokenIssuer}")
     private String tokenIssuer;
+    @Value("${JWT.tokenIssuer}PASSWORD")
+    private String passTokenIssuer;
     @Value("${JWT.tokenSigningKey}")
     private String tokenSigningKey;
+
+    public String generatePasswordToken(ProviderUser providerUser) {
+        String token;
+
+        token = JWT.create()
+                .withIssuer(passTokenIssuer)
+                .withClaim("ID", providerUser.getId())
+                .sign(Algorithm.HMAC256(tokenSigningKey));
+
+        log.info("passWordChangeToken -- " + token);
+
+        return token;
+    }
 
     public String generateToken(ProviderUser providerUser) {
         String token;

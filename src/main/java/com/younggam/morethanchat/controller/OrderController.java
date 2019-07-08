@@ -31,4 +31,9 @@ public class OrderController {
         return ResponseDto.of(HttpStatus.OK, messageCode(GET_ORDER_LIST_SUCCESS, searchDate), mainOrderList);
     }
 
+//    @PostMapping("{orderId}")
+//    public ResponseDto setOrderComplete(@RequestAttribute Long proividerId,@PathVariable Long orderId){
+//
+//    }
+
 }

@@ -19,6 +19,9 @@ public class ResponseMessage {
     public static final String LOGIN_SUCCESS = "로그인 성공";
     public static final String LOGIN_FAIL = "로그인 실패";
 
+    public static final String CAN_CHANGE_PASSWORD = "유저인증을 성공했으니 비밀번호를 변경 할 수 있습니다.";
+
+
     public static final String CURRENT_USER = "접근한 유저와 토큰의 유저가 같다.";
     public static final String NOT_CURRENT_USER = "접근한 유저와 토큰의 유저가 다르다.";
 

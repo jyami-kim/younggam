@@ -2,6 +2,7 @@ package com.younggam.morethanchat.controller;
 
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.exception.AlreadyUserException;
+import com.younggam.morethanchat.exception.NotFoundUserException;
 import com.younggam.morethanchat.exception.NotValidateTypeException;
 import com.younggam.morethanchat.exception.UnauthorizedException;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,11 @@ public class ApiControllerAdvice {
         return ResponseDto.of(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
+    @ExceptionHandler(NotFoundUserException.class)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ResponseDto handleNotFoundUserException(NotFoundUserException exception){
+        return ResponseDto.of(HttpStatus.NO_CONTENT, exception.getMessage());
+    }
 
 //    @ExceptionHandler(AlreadyUserException.class)
 //    @ResponseStatus(HttpStatus.OK)
