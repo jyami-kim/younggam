@@ -7,7 +7,6 @@ import com.younggam.morethanchat.exception.NotFoundUserException;
 import com.younggam.morethanchat.mapper.ChatBotMapper;
 import com.younggam.morethanchat.mapper.ProviderUserMapper;
 import com.younggam.morethanchat.repository.ChatBotRepository;
-import com.younggam.morethanchat.repository.ProviderUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,21 +20,26 @@ import java.util.Optional;
 public class ChatBotService {
 
     private final ChatBotMapper chatBotMapper;
-    private final ProviderUserMapper providerUserMapper;
     private final ChatBotRepository chatBotRepository;
 
     //TODO: 여기 providerID가 안먹음
     @Transactional
     public Long saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
-        ProviderUser providerUser = providerUserMapper.findById(providerId).orElseThrow(NotFoundUserException::new);
+        ChatBot providerUser = chatBotRepository.findById(providerId)
+                .orElseThrow(NotFoundUserException::new);
+
         log.info(providerId+"");
         log.info(providerUser+"");
-        Optional<ChatBot> previousCatBot = chatBotMapper.findByCategoryAndProviderUser(chatBotMessageSaveReqDto.getCategory(), providerId);
+
+        Optional<ChatBot> previousCatBot = chatBotMapper
+                .findByCategoryAndProviderUser(chatBotMessageSaveReqDto.getCategory(), providerId);
+
         if (previousCatBot.isPresent()) {
             previousCatBot.get().setMessage(chatBotMessageSaveReqDto.getMessage());
             return previousCatBot.get().getId();
         }
-        ChatBot newChatBot = chatBotMessageSaveReqDto.toEntity(providerUser);
+
+        ChatBot newChatBot = chatBotMessageSaveReqDto.toEntity(chatBotMessageSaveReqDto);
         newChatBot.validateCategory();
         newChatBot = chatBotRepository.save(newChatBot);
         return newChatBot.getId();

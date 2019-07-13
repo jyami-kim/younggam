@@ -9,9 +9,8 @@ import java.util.Optional;
 
 @Mapper
 public interface ProviderUserMapper {
-    @Select("SELECT * FROM provider_user WHERE email = #{email}")
-    Optional<ProviderUser> findByEmail(@Param("email") final String email);
 
-    @Select("SELECT * FROM provider_user WHERE id = #{id}")
-    Optional<ProviderUser> findById(@Param("id") final Long id);
+    @Select("SELECT * FROM provider_user WHERE email = #{email} OR phone_num = #{phoneNum}")
+    Optional<ProviderUser> findExistUser(@Param("phoneNum") final String phoneNum, @Param("email") final String email);
+
 }

@@ -11,13 +11,13 @@ import static com.younggam.morethanchat.utils.DateConverter.getNowAllDate;
 @NoArgsConstructor
 @Getter
 public class ProviderUserReqDto {
+
     private String email;
     private String passWd;
     private String name;
     private String phoneNum;
-    private String zipCode;
-    private String address;
-    private String detailedAddress;
+    private String birth;
+    private String knowPath;
 
     public ProviderUser toEntity() {
         return ProviderUser.createBuilder()
@@ -25,9 +25,6 @@ public class ProviderUserReqDto {
                 .passWd(this.passWd)
                 .name(this.name)
                 .phoneNum(this.phoneNum)
-                .zipCode(this.zipCode)
-                .address(this.address)
-                .detailedAddress(this.detailedAddress)
                 .regDate(getNowAllDate())
                 .build();
     }

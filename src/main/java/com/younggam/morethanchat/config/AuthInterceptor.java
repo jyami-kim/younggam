@@ -1,14 +1,13 @@
-package com.younggam.morethanchat.interceptor;
+package com.younggam.morethanchat.config;
 
-import com.younggam.morethanchat.domain.ProviderUser;
-import com.younggam.morethanchat.exception.UnauthorizedException;
-import com.younggam.morethanchat.repository.ProviderUserRepository;
 import com.younggam.morethanchat.utils.JwtFactory;
+import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import javax.security.auth.message.AuthException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,8 +25,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
         String token = request.getHeader("Authorization");
         Long providerId = this.jwtFactory.getUserId(token)
-                .orElseThrow(UnauthorizedException::new);
-
+                .orElseThrow(() -> new AuthException(ResponseMessage.AUTH));
 
         request.setAttribute("providerId", providerId);
 

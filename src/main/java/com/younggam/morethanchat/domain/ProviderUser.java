@@ -21,6 +21,7 @@ public class ProviderUser {
 
     @NotNull
     private String name;
+
     @NotNull
     @Column(unique = true)
     private String email;
@@ -31,21 +32,27 @@ public class ProviderUser {
     private String passWd;
 
     @NotNull
-    @Column(name = "phone_num")
+    @Column(name = "phone_num", unique = true)
     private String phoneNum;
 
-    @Column(name = "zipcode")
-    private String zipCode;
-
-    private String address;
-
-    @NotNull
-    @Column(name = "detailed_address")
-    private String detailedAddress;
+//    @Column(name = "zipcode")
+//    private String zipCode;
+//
+//    private String address;
+//
+//    @NotNull
+//    @Column(name = "detailed_address")
+//    private String detailedAddress;
 
     @NotNull
     @Column(name = "reg_date")
     private String regDate;
+
+    @NotNull
+    private int birth;
+
+    @Column(name= "know_path")
+    private String knowPath;
 
     private boolean status;
 

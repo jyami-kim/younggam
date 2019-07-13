@@ -1,17 +1,20 @@
 package com.younggam.morethanchat.config;
 
 
-import com.younggam.morethanchat.interceptor.AuthInterceptor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private final AuthInterceptor interceptor;
+    private final PassTokenResolver passTokenResolver;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -21,9 +24,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/webjars/springfox-swagger-ui/**")
                 .excludePathPatterns("/swagger-resources/**")
                 .excludePathPatterns("/v2/api-docs");
-
     }
-
-
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(passTokenResolver);
+    }
 }
 

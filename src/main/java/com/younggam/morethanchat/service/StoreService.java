@@ -7,6 +7,7 @@ import com.younggam.morethanchat.exception.AlreadyUserException;
 import com.younggam.morethanchat.exception.NotFoundUserException;
 import com.younggam.morethanchat.repository.ProviderUserRepository;
 import com.younggam.morethanchat.repository.StoreRepository;
+import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +26,7 @@ public class StoreService {
     private void checkCreateNewStoreIsAlreadyExisted(Long providerId){
         Optional<Store> alreadyStore = storeRepository.findById(providerId);
         if(alreadyStore.isPresent())
-            throw new AlreadyUserException(STORE_BASIC_INFO_IS_ALREADY_EXIST);
-        //이경우에는 post가 아니라 put 연산을 해야함! 그래서 front에게 알려주는!
+            throw new AlreadyUserException(ResponseMessage.ALREADY_EXISTED_STORE);
     }
 
     @Transactional
@@ -37,6 +37,5 @@ public class StoreService {
         store = storeRepository.save(store);
         return store.getBotId();
     }
-
 
 }

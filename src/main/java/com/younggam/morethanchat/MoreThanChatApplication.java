@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
 public class MoreThanChatApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(MoreThanChatApplication.class, args);
     }
-
 }

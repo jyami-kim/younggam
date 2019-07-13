@@ -7,49 +7,59 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
 import com.younggam.morethanchat.domain.ProviderUser;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class JwtFactory {
 
     public static final String HEADER_PREFIX = "EROMTHAN";
-    @Value("${JWT.tokenIssuer}")
+    @Value("${myProperties.secret}")
     private String tokenIssuer;
-    @Value("${JWT.tokenIssuer}PASSWORD")
-    private String passTokenIssuer;
-    @Value("${JWT.tokenSigningKey}")
+    @Value("${myProperties.secret}")
     private String tokenSigningKey;
 
-    public String generatePasswordToken(ProviderUser providerUser) {
-        String token;
+    private long tokenValidMillisecond = 1000L * 60 * 60; // 1시간만 토큰 유효
+    private long passwordTokenValidMillisecond = 1000L * 60 * 7; // 7분 토큰 유효
 
-        token = JWT.create()
-                .withIssuer(passTokenIssuer)
-                .withClaim("ID", providerUser.getId())
-                .sign(Algorithm.HMAC256(tokenSigningKey));
-
-        log.info("passWordChangeToken -- " + token);
-
-        return token;
-    }
 
     public String generateToken(ProviderUser providerUser) {
         String token;
 
+        Date now = new Date();
         token = JWT.create()
                 .withIssuer(tokenIssuer)
                 .withClaim("ID", providerUser.getId())
                 .withClaim("NAME", providerUser.getEmail())
+                .withExpiresAt(new Date(now.getTime() + tokenValidMillisecond))
                 .sign(Algorithm.HMAC256(tokenSigningKey));
 
         log.info("token -- " + token);
+
+        return token;
+    }
+
+    public String generatePasswordToken(ProviderUser providerUser) {
+        String token;
+
+        Date now = new Date();
+
+        token = JWT.create()
+                .withIssuer(tokenIssuer)
+                .withClaim("ID", providerUser.getId())
+                .withExpiresAt(new Date(now.getTime() + passwordTokenValidMillisecond))
+                .sign(Algorithm.HMAC256(tokenSigningKey));
+
+        log.info("passWordChangeToken -- " + token);
 
         return token;
     }
