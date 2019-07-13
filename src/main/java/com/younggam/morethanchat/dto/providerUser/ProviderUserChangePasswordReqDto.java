@@ -1,9 +1,9 @@
 package com.younggam.morethanchat.dto.providerUser;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class ProviderUserChangePasswordReqDto {
     private String passWd;

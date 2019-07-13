@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
 import com.younggam.morethanchat.domain.ProviderUser;
+import com.younggam.morethanchat.exception.TokenException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -105,15 +106,15 @@ public class JwtFactory {
 
     private String tokenExtractor(String header) {
         if (StringUtils.isEmpty(header)) {
-            throw new IllegalArgumentException("Authorization header가 없습니다.");
+            throw new TokenException("Authorization header가 없습니다.");
         }
 
         if (header.length() < HEADER_PREFIX.length()) {
-            throw new IllegalArgumentException("authorization header size가 옳지 않습니다. header의 길이는 " + HEADER_PREFIX.length() + " 보다 크거나 같아야 합니다.");
+            throw new TokenException("authorization header size가 옳지 않습니다. header의 길이는 " + HEADER_PREFIX.length() + " 보다 크거나 같아야 합니다.");
         }
 
         if (!header.startsWith(HEADER_PREFIX)) {
-            throw new IllegalArgumentException("올바른 header형식이 아닙니다.");
+            throw new TokenException("올바른 header형식이 아닙니다.");
         }
 
         return header.substring(HEADER_PREFIX.length());

@@ -3,6 +3,8 @@ package com.younggam.morethanchat.controller;
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.dto.TokenDto;
 import com.younggam.morethanchat.dto.providerUser.*;
+import com.younggam.morethanchat.exception.AuthException;
+import com.younggam.morethanchat.exception.TokenException;
 import com.younggam.morethanchat.service.ProviderUserService;
 import com.younggam.morethanchat.utils.JwtFactory;
 import com.younggam.morethanchat.utils.ResponseMessage;
@@ -11,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.security.auth.message.AuthException;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,16 +51,16 @@ public class ProviderUserController {
     public ResponseDto updatePassword(TokenDto tokenDto,
                                       @RequestBody ProviderUserChangePasswordReqDto providerUserChangePasswordReqDto) throws AuthException {
         Long providerId = jwtFactory.getUserId(tokenDto.getToken())
-                .orElseThrow(() -> new AuthException(ResponseMessage.PASSWORD_TOKEN_ERROR));
+                .orElseThrow(() -> new TokenException(ResponseMessage.PASSWORD_TOKEN_ERROR));
 
         Long providerUserId = providerUserService.updateProviderUserUpdatePassword(providerUserChangePasswordReqDto, providerId);
-        return ResponseDto.of(HttpStatus.OK, ResponseMessage.CAN_CHANGE_PASSWORD, providerUserId);
+        return ResponseDto.of(HttpStatus.OK, ResponseMessage.UPDATE_USER, providerUserId);
     }
 
     // TODO: auth 체크 안된상태로 그냥 id가 호출 될 수 있어서 관리자 권한에서만 가능하게 수정해야함.
     @GetMapping("/{id}")
     public ResponseDto getUserById(@PathVariable(name = "id") Long id) {
-        return ResponseDto.of(HttpStatus.OK, ResponseMessage.CREATED_USER, providerUserService.getUserById(id));
+        return ResponseDto.of(HttpStatus.OK, ResponseMessage.READ_USER, providerUserService.getUserById(id));
     }
 
 

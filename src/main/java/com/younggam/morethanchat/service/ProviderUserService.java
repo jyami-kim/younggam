@@ -72,8 +72,10 @@ public class ProviderUserService {
         return providerUser.getId();
     }
 
-    public Optional<ProviderUser> getUserById(long id) {
-        return providerUserRepository.findById(id);
+    public ProviderUserResDto getUserById(Long providerId) {
+        ProviderUser providerUser = providerUserRepository.findById(providerId)
+                .orElseThrow(NotFoundUserException::new);
+        return new ProviderUserResDto(providerUser);
     }
 
 }

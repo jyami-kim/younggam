@@ -16,7 +16,7 @@ public class ProviderUserReqDto {
     private String passWd;
     private String name;
     private String phoneNum;
-    private String birth;
+    private int birth;
     private String knowPath;
 
     public ProviderUser toEntity() {
@@ -25,6 +25,7 @@ public class ProviderUserReqDto {
                 .passWd(this.passWd)
                 .name(this.name)
                 .phoneNum(this.phoneNum)
+                .birth(this.birth)
                 .regDate(getNowAllDate())
                 .build();
     }
