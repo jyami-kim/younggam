@@ -2,6 +2,7 @@ package com.younggam.morethanchat.controller;
 
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.dto.chatBot.ChatBotMessageSaveReqDto;
+import com.younggam.morethanchat.dto.chatBot.ChatBotMessageSaveResDto;
 import com.younggam.morethanchat.service.ChatBotService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +22,8 @@ public class ChatBotController {
 
     @PostMapping("messageSet") //이건 수정 겸 등록으로 만들어야겠다.
     public ResponseDto chatBotMessageSet(@RequestAttribute Long providerId, @RequestBody ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
-        Long messageSetId = chatBotService.saveChatBotMessage(providerId, chatBotMessageSaveReqDto);
-        return ResponseDto.of(HttpStatus.OK, messageCode(SAVE_CHATBOT_MESSAGE, messageSetId.toString()));
+        ChatBotMessageSaveResDto chatBotMessageSaveResDto = chatBotService.saveChatBotMessage(providerId, chatBotMessageSaveReqDto);
+        return ResponseDto.of(HttpStatus.OK, messageCode(SAVE_CHATBOT_MESSAGE, chatBotMessageSaveResDto.getCategory()),
+                chatBotMessageSaveResDto.getId());
     }
 }

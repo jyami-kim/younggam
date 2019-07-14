@@ -1,6 +1,7 @@
 package com.younggam.morethanchat.dto.chatBot;
 
 import com.younggam.morethanchat.domain.ChatBot;
+import com.younggam.morethanchat.domain.ChatCategory;
 import com.younggam.morethanchat.domain.ProviderUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,10 +19,12 @@ public class ChatBotMessageSaveReqDto {
     private String message;
 
     //초기 등록시
-    public ChatBot toEntity(ChatBotMessageSaveReqDto providerUser) {
+    public ChatBot toEntity(Long providerId) {
+
         return ChatBot.builder()
-                .category(providerUser.category)
-                .message(providerUser.message)
+                .provider_id(providerId)
+                .category(this.category)
+                .message(this.message)
                 .build();
     }
 

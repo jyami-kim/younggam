@@ -1,18 +1,16 @@
 package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.ChatBot;
+import com.younggam.morethanchat.domain.ChatCategory;
 import com.younggam.morethanchat.dto.chatBot.ChatBotMessageSaveReqDto;
-import com.younggam.morethanchat.exception.NotFoundException;
+import com.younggam.morethanchat.dto.chatBot.ChatBotMessageSaveResDto;
 import com.younggam.morethanchat.mapper.ChatBotMapper;
 import com.younggam.morethanchat.repository.ChatBotRepository;
+import com.younggam.morethanchat.repository.ProviderUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-
-import static com.younggam.morethanchat.utils.ResponseMessage.NOT_FOUND_CHATBOT;
 
 @Service
 @Slf4j
@@ -21,28 +19,33 @@ public class ChatBotService {
 
     private final ChatBotMapper chatBotMapper;
     private final ChatBotRepository chatBotRepository;
+    private final ProviderUserRepository providerUserRepository;
 
-    //TODO: 여기 providerID가 안먹음
     @Transactional
-    public Long saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
-        ChatBot providerUser = chatBotRepository.findById(providerId)
-                .orElseThrow(() -> new NotFoundException(NOT_FOUND_CHATBOT));
+    public ChatBotMessageSaveResDto saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
+//        ChatBot providerUser = chatBotRepository.findById(providerId)
+//                .orElseThrow(() -> new NotFoundException(NOT_FOUND_CHATBOT));
 
-        log.info(providerId+"");
-        log.info(providerUser+"");
+        ChatCategory chatCategory = ChatCategory.find(chatBotMessageSaveReqDto.getCategory());
 
-        Optional<ChatBot> previousCatBot = chatBotMapper
-                .findByCategoryAndProviderUser(chatBotMessageSaveReqDto.getCategory(), providerId);
+        ChatBot chatBot = chatBotMapper
+                .findByCategoryAndProviderUser(chatCategory.getCategoryType(), providerId);
 
-        if (previousCatBot.isPresent()) {
-            previousCatBot.get().setMessage(chatBotMessageSaveReqDto.getMessage());
-            return previousCatBot.get().getId();
+        if (chatBot != null) {
+            chatBot.setMessage(chatBotMessageSaveReqDto.getMessage());
+        } else {
+            chatBot = chatBotMessageSaveReqDto.toEntity(providerId);
         }
 
-        ChatBot newChatBot = chatBotMessageSaveReqDto.toEntity(chatBotMessageSaveReqDto);
-        newChatBot.validateCategory();
-        newChatBot = chatBotRepository.save(newChatBot);
-        return newChatBot.getId();
+        log.info(chatBot.getCategory());
+        log.info(chatBot.getMessage());
+
+        chatBot = chatBotRepository.save(chatBot);
+
+        return ChatBotMessageSaveResDto.builder()
+                .category(chatBot.getCategory())
+                .id(chatBot.getId())
+                .build();
     }
 
 }

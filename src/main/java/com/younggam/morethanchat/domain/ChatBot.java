@@ -15,7 +15,6 @@ import static com.younggam.morethanchat.utils.ResponseMessage.CHATBOT_CATEGORY_I
 @Builder
 @Entity
 public class ChatBot {
-    @NotNull
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,11 +26,4 @@ public class ChatBot {
     @Setter
     @NotNull
     private String message;
-
-    public void validateCategory() {
-        // TODO : ENUM 만들어서 validate 처리하기
-        if (category.isEmpty()) {
-            throw new NotValidateTypeException(CHATBOT_CATEGORY_IS_NOT_VALID);
-        }
-    }
 }

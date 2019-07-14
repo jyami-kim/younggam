@@ -47,11 +47,11 @@ public class ResponseMessage {
      * chatBot 관련
      */
 
-    public static final String CHATBOT_CATEGORY_IS_NOT_VALID = "지정한 카테고리의 숫자가 올바르지 않은 값입니다.";
+    public static final String CHATBOT_CATEGORY_IS_NOT_VALID = "지정한 카테고리가 올바르지 않은 값입니다.";
 
     public static final String SAVE_CHATBOT_MESSAGE = "챗봇메세지를 등록하였습니다.";
 
-    public static final String NOT_FOUND_CHATBOT  = "챗봇메세지를 등록하였습니다.";
+    public static final String NOT_FOUND_CHATBOT  = "해당하는 챗봇이 없습니다.";
 
 
     /**
@@ -75,4 +75,6 @@ public class ResponseMessage {
 
     public static final String SEND_MAIL_SUCCESS = "메일 보내기 성공";
 
+
+    public static final String READ_NOTICE_SUCCESS = "공지 읽기 성공";
 }
