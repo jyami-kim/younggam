@@ -1,11 +1,9 @@
 package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.ChatBot;
-import com.younggam.morethanchat.domain.ProviderUser;
 import com.younggam.morethanchat.dto.chatBot.ChatBotMessageSaveReqDto;
-import com.younggam.morethanchat.exception.NotFoundUserException;
+import com.younggam.morethanchat.exception.NotFoundException;
 import com.younggam.morethanchat.mapper.ChatBotMapper;
-import com.younggam.morethanchat.mapper.ProviderUserMapper;
 import com.younggam.morethanchat.repository.ChatBotRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+
+import static com.younggam.morethanchat.utils.ResponseMessage.NOT_FOUND_CHATBOT;
 
 @Service
 @Slf4j
@@ -26,7 +26,7 @@ public class ChatBotService {
     @Transactional
     public Long saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
         ChatBot providerUser = chatBotRepository.findById(providerId)
-                .orElseThrow(NotFoundUserException::new);
+                .orElseThrow(() -> new NotFoundException(NOT_FOUND_CHATBOT));
 
         log.info(providerId+"");
         log.info(providerUser+"");

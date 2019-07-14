@@ -7,14 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.sql.SQLIntegrityConstraintViolationException;
-
 @RestControllerAdvice
 @Slf4j
 public class ApiControllerAdvice {
 
-    @ExceptionHandler(AuthException.class)
-    public ResponseDto handleExistUserException(AuthException ex) {
+    @ExceptionHandler(CustomAuthException.class)
+    public ResponseDto handleExistUserException(CustomAuthException ex) {
         return ResponseDto.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
     }
 
@@ -28,8 +26,8 @@ public class ApiControllerAdvice {
         return ResponseDto.of(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
 
-    @ExceptionHandler(NotFoundUserException.class)
-    public ResponseDto handleNotFoundUserException(NotFoundUserException exception){
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseDto handleNotFoundUserException(NotFoundException exception){
         return ResponseDto.of(HttpStatus.NO_CONTENT, exception.getMessage());
     }
 

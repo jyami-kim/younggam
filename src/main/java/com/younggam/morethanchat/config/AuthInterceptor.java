@@ -1,5 +1,6 @@
 package com.younggam.morethanchat.config;
 
+import com.younggam.morethanchat.exception.CustomAuthException;
 import com.younggam.morethanchat.utils.JwtFactory;
 import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
 
         String token = request.getHeader("Authorization");
         Long providerId = this.jwtFactory.getUserId(token)
-                .orElseThrow(() -> new AuthException(ResponseMessage.AUTH));
+                .orElseThrow(() -> new CustomAuthException(ResponseMessage.AUTH));
 
         request.setAttribute("providerId", providerId);
 

@@ -51,6 +51,8 @@ public class ResponseMessage {
 
     public static final String SAVE_CHATBOT_MESSAGE = "챗봇메세지를 등록하였습니다.";
 
+    public static final String NOT_FOUND_CHATBOT  = "챗봇메세지를 등록하였습니다.";
+
 
     /**
      * Products 관련
@@ -62,7 +64,14 @@ public class ResponseMessage {
      * order 관련
      */
 
-    public static final String GET_ORDER_LIST_SUCCESS = "날짜에 맞는 orderlist 조회 성공";
+    public static final String GET_ORDER_LIST_SUCCESS = "날짜에 맞는 orderList 조회 성공";
+    public static final String UPDATE_ORDER_STATUS_SUCCESS = "수령 체크 성공";
+    public static final String NOT_FOUND_ORDER = "주문을 찾을 수 없습니다.";
 
+    /**
+     * mail 관련
+     */
+
+    public static final String SEND_MAIL_SUCCESS = "메일 보내기 성공";
 
 }

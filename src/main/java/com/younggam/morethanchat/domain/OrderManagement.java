@@ -1,8 +1,6 @@
 package com.younggam.morethanchat.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,9 +10,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Table(name = "order_management")
 @AllArgsConstructor
+@Entity
+@Builder
 public class OrderManagement {
 
     @NotNull
+    @Id
     @Column(name = "order_id")
     private Long orderId;
     @NotNull
@@ -25,9 +26,8 @@ public class OrderManagement {
     private String pickupTime;
     @Column(name = "require_wrapping")
     private String requireWrapping;
-    @Column(name = "require_ect")
-    private String requireEct;
     @NotNull
+    @Setter
     @Column(name = "order_status")
     private boolean orderStatus;
     @NotNull

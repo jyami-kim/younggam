@@ -11,10 +11,11 @@ import java.io.ByteArrayOutputStream;
 @Getter
 @Builder
 public class OrderManageResDto {
+    private int orderId;
     private String name;
     private String phoneNum;
     private String pickupTime;
-    private String totalPayment;
+    private int totalPayment;
     private String paymentMethod;
     private int orderStatus;
     private String productList;

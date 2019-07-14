@@ -4,7 +4,7 @@ import com.younggam.morethanchat.domain.ProviderUser;
 import com.younggam.morethanchat.domain.Store;
 import com.younggam.morethanchat.dto.store.StoreBasicInfoReqDto;
 import com.younggam.morethanchat.exception.AlreadyUserException;
-import com.younggam.morethanchat.exception.NotFoundUserException;
+import com.younggam.morethanchat.exception.NotFoundException;
 import com.younggam.morethanchat.repository.ProviderUserRepository;
 import com.younggam.morethanchat.repository.StoreRepository;
 import com.younggam.morethanchat.utils.ResponseMessage;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-import static com.younggam.morethanchat.utils.ResponseMessage.STORE_BASIC_INFO_IS_ALREADY_EXIST;
+import static com.younggam.morethanchat.utils.ResponseMessage.NOT_FOUND_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +32,7 @@ public class StoreService {
     @Transactional
     public String saveBasicInfo(Long providerId, StoreBasicInfoReqDto storeBasicInfoReqDto){
         checkCreateNewStoreIsAlreadyExisted(providerId);
-        ProviderUser providerUser = providerUserRepository.findById(providerId).orElseThrow(NotFoundUserException::new);
+        ProviderUser providerUser = providerUserRepository.findById(providerId).orElseThrow(() -> new NotFoundException(NOT_FOUND_USER));
         Store store = storeBasicInfoReqDto.toEntity(providerUser);
         store = storeRepository.save(store);
         return store.getBotId();

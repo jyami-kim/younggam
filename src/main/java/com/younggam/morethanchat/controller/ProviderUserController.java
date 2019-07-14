@@ -3,7 +3,7 @@ package com.younggam.morethanchat.controller;
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.dto.TokenDto;
 import com.younggam.morethanchat.dto.providerUser.*;
-import com.younggam.morethanchat.exception.AuthException;
+import com.younggam.morethanchat.exception.CustomAuthException;
 import com.younggam.morethanchat.exception.TokenException;
 import com.younggam.morethanchat.service.ProviderUserService;
 import com.younggam.morethanchat.utils.JwtFactory;
@@ -25,8 +25,8 @@ public class ProviderUserController {
 
     @PostMapping("")
     public ResponseDto signUp(@RequestBody ProviderUserReqDto providerUserReqDto) {
-        providerUserService.createUser(providerUserReqDto);
-        return ResponseDto.of(HttpStatus.OK, ResponseMessage.CREATED_USER);
+        Long providerUserId = providerUserService.createUser(providerUserReqDto);
+        return ResponseDto.of(HttpStatus.OK, ResponseMessage.CREATED_USER, providerUserId);
     }
 
     @GetMapping("/check")
@@ -49,7 +49,7 @@ public class ProviderUserController {
 
     @PutMapping("pass")
     public ResponseDto updatePassword(TokenDto tokenDto,
-                                      @RequestBody ProviderUserChangePasswordReqDto providerUserChangePasswordReqDto) throws AuthException {
+                                      @RequestBody ProviderUserChangePasswordReqDto providerUserChangePasswordReqDto) throws CustomAuthException {
         Long providerId = jwtFactory.getUserId(tokenDto.getToken())
                 .orElseThrow(() -> new TokenException(ResponseMessage.PASSWORD_TOKEN_ERROR));
 
