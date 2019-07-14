@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Entity
 public class Notice {
+    @Id
     private Long id;
     private String title;
     private String content;

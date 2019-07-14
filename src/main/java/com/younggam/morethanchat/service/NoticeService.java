@@ -17,7 +17,7 @@ public class NoticeService {
     private final NoticeRepository noticeRepository;
 
     public List<NoticeResDto> getNotices() {
-        return noticeRepository.findAll()
+        return noticeRepository.findAllByOrderByIdDesc()
                 .stream()
                 .map(NoticeResDto::new)
                 .collect(Collectors.toList());
