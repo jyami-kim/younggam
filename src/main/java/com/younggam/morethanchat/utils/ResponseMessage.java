@@ -65,6 +65,7 @@ public class ResponseMessage {
      */
 
     public static final String GET_ORDER_LIST_SUCCESS = "날짜에 맞는 orderList 조회 성공";
+    public static final String GET_TODAY_ORDER_SUCCESS = "날짜에 맞는 order 요약 조회 성공";
     public static final String UPDATE_ORDER_STATUS_SUCCESS = "수령 체크 성공";
     public static final String NOT_FOUND_ORDER = "주문을 찾을 수 없습니다.";
 

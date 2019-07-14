@@ -2,7 +2,7 @@ package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.OrderManagement;
 import com.younggam.morethanchat.dto.order.OrderManageResDto;
-import com.younggam.morethanchat.dto.order.OrderManageResultReqDto;
+import com.younggam.morethanchat.dto.order.OrderManageResultResDto;
 import com.younggam.morethanchat.dto.order.OrderManagementMapperDto;
 import com.younggam.morethanchat.exception.NotFoundException;
 import com.younggam.morethanchat.mapper.OrderMapper;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
+import static com.younggam.morethanchat.utils.DateConverter.getNowDate;
 import static com.younggam.morethanchat.utils.ResponseMessage.NOT_FOUND_ORDER;
 
 @Service
@@ -35,18 +35,28 @@ public class OrderService {
         return save.getOrderId();
     }
 
-    public OrderManageResultReqDto getMainOrderList(Long providerId, String searchDate) {
+    public OrderManageResultResDto getMainOrderList(Long providerId, String searchDate) {
         List<OrderManageResDto> mainPage = orderMapper.getMainPage(providerId, searchDate);
 
         int profit = mainPage.stream()
                 .mapToInt(OrderManageResDto::getTotalPayment)
                 .sum();
 
-        return OrderManageResultReqDto.builder()
+        return OrderManageResultResDto.builder()
                 .amountAsk(mainPage.size())
                 .amountOrder(mainPage.size())
                 .expectProfit(profit)
-                .orderManageResultReqDtos(mainPage)
+                .orderManageResDtos(mainPage)
+                .build();
+    }
+
+    public OrderManageResultResDto getTodayOrderShort(Long providerId){
+        String searchDate = getNowDate();
+        Integer orderShort = orderMapper.getOrderShort(providerId, searchDate).size();
+
+        return OrderManageResultResDto.builder()
+                .amountAsk(orderShort)
+                .amountOrder(orderShort)
                 .build();
     }
 }

@@ -44,6 +44,5 @@ public class StoreBasicInfoReqDto {
                 .botImage(this.botImage)
                 .regDate(getNowAllDate())
                 .build();
-
     }
 }

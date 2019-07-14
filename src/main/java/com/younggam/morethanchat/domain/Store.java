@@ -56,11 +56,10 @@ public class Store {
     @Column(name = "bot_id", unique = true)
     private String botId;
 
-    @NotNull
     @Column(name = "bot_intro")
     private String botIntro;
 
-    @NotNull
+
     @Column(name = "bot_image")
     private String botImage;
 

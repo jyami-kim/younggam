@@ -9,8 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Builder
-public class OrderManageResultReqDto {
-    private List<OrderManageResDto> orderManageResultReqDtos;
+public class OrderManageResultResDto {
+    private List<OrderManageResDto> orderManageResDtos;
     private int amountOrder;
     private int amountAsk;
     private int expectProfit;

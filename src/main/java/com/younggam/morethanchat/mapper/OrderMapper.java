@@ -26,6 +26,13 @@ public interface OrderMapper {
             "WHERE cr.provider_id = #{providerId} AND om.pickup_date LIKE #{pickupDate} GROUP BY od.order_id;")
     List<OrderManageResDto> getMainPage(@Param("providerId") final Long providerId, @Param("pickupDate") final String pickupDate);
 
+    @Select("SELECT os.id " +
+            "FROM chatroom AS cr INNER JOIN order_sheet AS os ON cr.chatroom_code=os.chatroom_code " +
+            "INNER JOIN order_management AS om ON os.id = om.order_id " +
+            "INNER JOIN order_detail AS od ON os.id = od.order_id " +
+            "WHERE cr.provider_id = #{providerId} AND om.pickup_date LIKE #{pickupDate} GROUP BY od.order_id;")
+    List<Long> getOrderShort(@Param("providerId") final Long providerId, @Param("pickupDate") final String pickupDate);
+
     @Select("SELECT om.order_id, om.pickup_date, om.pickup_time, om.require_wrapping, om.order_status, om.reg_date " +
             "FROM chatroom AS cr INNER JOIN order_sheet AS os ON cr.chatroom_code = os.chatroom_code " +
             "INNER JOIN order_management AS om ON os.id = om.order_id " +

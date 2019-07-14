@@ -1,7 +1,7 @@
 package com.younggam.morethanchat.controller;
 
 import com.younggam.morethanchat.dto.ResponseDto;
-import com.younggam.morethanchat.dto.order.OrderManageResultReqDto;
+import com.younggam.morethanchat.dto.order.OrderManageResultResDto;
 import com.younggam.morethanchat.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +23,14 @@ public class OrderController {
     public ResponseDto getMainOrderList(@RequestAttribute Long providerId, @RequestParam(required = false) String searchDate) {
         if (searchDate == null)
             searchDate = getNowDate();
-        OrderManageResultReqDto mainOrderResult = orderService.getMainOrderList(providerId, searchDate);
+        OrderManageResultResDto mainOrderResult = orderService.getMainOrderList(providerId, searchDate);
         return ResponseDto.of(HttpStatus.OK, messageCode(GET_ORDER_LIST_SUCCESS, searchDate), mainOrderResult);
+    }
+
+    @GetMapping("main/short")
+    public ResponseDto getOrderShortest(@RequestAttribute Long providerId) {
+        OrderManageResultResDto mainOrderResult = orderService.getTodayOrderShort(providerId);
+        return ResponseDto.of(HttpStatus.OK, messageCode(GET_TODAY_ORDER_SUCCESS, getNowDate()), mainOrderResult);
     }
 
     @PutMapping("status/{orderId}")
