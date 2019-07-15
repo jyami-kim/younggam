@@ -34,15 +34,15 @@ public class ProviderUserService {
     }
 
     public ProviderUserForgetEmailResDto findProviderUserEmail(ProviderUserForgetEmailReqDto providerUserForgetEmailReqDto) {
-        ProviderUser providerUser = providerUserRepository
-                .findByPhoneNumAndName(providerUserForgetEmailReqDto.getPhoneNum(), providerUserForgetEmailReqDto.getName())
+        ProviderUser providerUser = providerUserMapper
+                .findExistUserByPhoneNumAndName(providerUserForgetEmailReqDto.getPhoneNum(), providerUserForgetEmailReqDto.getName())
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_USER));
         return new ProviderUserForgetEmailResDto(providerUser.getEmail());
     }
 
     public String canCheckProviderUserChangePassWd(ProviderUserForgetPassWdReqDto providerUserForgetPassWdReqDto) {
-        ProviderUser providerUser = providerUserRepository
-                .findByPhoneNumAndEmail(providerUserForgetPassWdReqDto.getPhoneNum(), providerUserForgetPassWdReqDto.getEmail())
+        ProviderUser providerUser = providerUserMapper
+                .findExistUserByPhoneNumAndEmail(providerUserForgetPassWdReqDto.getPhoneNum(), providerUserForgetPassWdReqDto.getEmail())
                 .orElseThrow(() -> new NotFoundException(NOT_FOUND_USER));
 
         return jwtFactory.generatePasswordToken(providerUser);

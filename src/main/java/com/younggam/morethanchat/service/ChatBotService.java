@@ -19,7 +19,6 @@ public class ChatBotService {
 
     private final ChatBotMapper chatBotMapper;
     private final ChatBotRepository chatBotRepository;
-    private final ProviderUserRepository providerUserRepository;
 
     @Transactional
     public ChatBotMessageSaveResDto saveChatBotMessage(Long providerId, ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {

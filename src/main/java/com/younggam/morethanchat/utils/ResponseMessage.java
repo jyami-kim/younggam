@@ -55,6 +55,14 @@ public class ResponseMessage {
 
 
     /**
+     * chatMessage 관련
+     */
+
+    public static final String READ_CHAT_MESSAGE_SUCCESS = "챗봇 메시지 읽기 성공";
+
+    public static final String NOT_ACCESS_CHAT_MESSAGE = "접근 할 수 없는 챗봇 메시지 입니다.";
+
+    /**
      * Products 관련
      * */
 

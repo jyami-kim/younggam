@@ -28,8 +28,10 @@ public class OrderController {
     }
 
     @GetMapping("main/short")
-    public ResponseDto getOrderShortest(@RequestAttribute Long providerId) {
-        OrderManageResultResDto mainOrderResult = orderService.getTodayOrderShort(providerId);
+    public ResponseDto getOrderShortest(@RequestAttribute Long providerId, @RequestParam(required = false) String searchDate) {
+        if (searchDate == null)
+            searchDate = getNowDate();
+        OrderManageResultResDto mainOrderResult = orderService.getTodayOrderShort(providerId, searchDate);
         return ResponseDto.of(HttpStatus.OK, messageCode(GET_TODAY_ORDER_SUCCESS, getNowDate()), mainOrderResult);
     }
 

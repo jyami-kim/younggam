@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+
 @RestControllerAdvice
 @Slf4j
 public class ApiControllerAdvice {
@@ -14,6 +15,11 @@ public class ApiControllerAdvice {
     @ExceptionHandler(CustomAuthException.class)
     public ResponseDto handleExistUserException(CustomAuthException ex) {
         return ResponseDto.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
+    }
+
+    @ExceptionHandler(NotAccessException.class)
+    public ResponseDto handleNotAccessException(NotAccessException ex){
+        return ResponseDto.of(HttpStatus.FORBIDDEN, ex.getMessage());
     }
 
     @ExceptionHandler(AlreadyUserException.class)

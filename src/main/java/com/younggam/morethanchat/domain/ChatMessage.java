@@ -35,7 +35,6 @@ public class ChatMessage {
 
     private ChatMessage() {
         this.writtenDate = DateConverter.getNowAllDate();
-
     }
 
 }
