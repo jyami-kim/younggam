@@ -84,5 +84,13 @@ public class ResponseMessage {
     public static final String SEND_MAIL_SUCCESS = "메일 보내기 성공";
 
 
+    /**
+     * notice 관련
+     */
     public static final String READ_NOTICE_SUCCESS = "공지 읽기 성공";
+
+    /**
+     * download 관련
+     */
+    public static final String SAVE_PDF_DOWNLOADER_USER_SUCCESS = "pdf 다운로드 유저 저장 성공";
 }

@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.younggam.morethanchat.utils.ResponseMessage.NOT_ACCESS_CHAT_MESSAGE;
 
@@ -24,6 +25,9 @@ public class ChatMessageService {
         if(chatMessageMapper.canAccessChatBot(chatRoomCode, providerId) == 0){
             throw new NotAccessException(NOT_ACCESS_CHAT_MESSAGE);
         }
-        return chatMessageMapper.getChatMessages(chatRoomCode);
+
+        return chatMessageMapper.getChatMessages(chatRoomCode).stream()
+                .map(ChatMessageShowResDto::new)
+                .collect(Collectors.toList());
     }
 }

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "product")
 @AllArgsConstructor
 public class Product {
+    @Id
     private Long id;
 
     @Column(name = "provider_id")

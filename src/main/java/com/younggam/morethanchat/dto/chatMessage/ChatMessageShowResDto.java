@@ -1,5 +1,6 @@
 package com.younggam.morethanchat.dto.chatMessage;
 
+import com.younggam.morethanchat.domain.ChatMessage;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,9 +9,13 @@ import lombok.Getter;
 @Getter
 @Builder
 public class ChatMessageShowResDto {
-    private Long id;
-    private String chatroomCode;
     private boolean writer;
     private String chatMessage;
     private String writtenDate;
+
+    public ChatMessageShowResDto(ChatMessage chatMessage){
+        this.chatMessage = chatMessage.getChatMessage();
+        this.writtenDate = chatMessage.getWrittenDate();
+        this.writer = chatMessage.getWriter();
+    }
 }
