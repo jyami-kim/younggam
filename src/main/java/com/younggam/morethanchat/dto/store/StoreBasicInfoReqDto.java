@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.Random;
 
-import static com.younggam.morethanchat.utils.DateConverter.getNowAllDate;
+import static com.younggam.morethanchat.utils.TypeConverter.getNowAllDate;
 
 @Getter
 @AllArgsConstructor

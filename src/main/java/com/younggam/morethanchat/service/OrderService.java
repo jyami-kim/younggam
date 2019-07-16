@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.younggam.morethanchat.utils.DateConverter.getNowDate;
 import static com.younggam.morethanchat.utils.ResponseMessage.NOT_FOUND_ORDER;
 
 @Service

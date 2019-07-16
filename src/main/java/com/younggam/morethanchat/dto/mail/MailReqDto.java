@@ -1,9 +1,8 @@
 package com.younggam.morethanchat.dto.mail;
 
-import com.younggam.morethanchat.utils.DateConverter;
+import com.younggam.morethanchat.utils.TypeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @Getter
@@ -14,6 +13,6 @@ public class MailReqDto {
     private String date;
 
     MailReqDto(){
-        date = DateConverter.getNowDate();
+        date = TypeConverter.getNowDate();
     }
 }

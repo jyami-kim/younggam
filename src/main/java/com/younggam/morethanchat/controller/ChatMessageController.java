@@ -20,10 +20,14 @@ public class ChatMessageController {
 
     private final ChatMessageService chatMessageService;
 
-    @GetMapping("{chatRoomCode}") //이건 수정 겸 등록으로 만들어야겠다.
+    @GetMapping("{chatRoomCode}")
     public ResponseDto chatBotMessageSet(@RequestAttribute Long providerId, @PathVariable String chatRoomCode) {
-
         List<ChatMessageShowResDto> chatMessage = chatMessageService.getChatMessage(providerId ,chatRoomCode);
         return ResponseDto.of(HttpStatus.OK, READ_CHAT_MESSAGE_SUCCESS, chatMessage);
     }
+
+//    @PostMapping()
+//    public ResponseDto saveReply(@RequestAttribute Long providerId, @PathVariable String chatRoomCode){
+//
+//    }
 }

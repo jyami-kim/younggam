@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import static com.younggam.morethanchat.utils.DateConverter.getNowDate;
+import static com.younggam.morethanchat.utils.TypeConverter.getNowDate;
 import static com.younggam.morethanchat.utils.ResponseMessage.*;
 
 @RestController

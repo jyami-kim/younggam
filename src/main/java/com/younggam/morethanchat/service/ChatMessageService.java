@@ -1,9 +1,10 @@
 package com.younggam.morethanchat.service;
 
+import com.younggam.morethanchat.dto.chatMessage.ChatMessageReplyReqDto;
 import com.younggam.morethanchat.dto.chatMessage.ChatMessageShowResDto;
 import com.younggam.morethanchat.exception.NotAccessException;
 import com.younggam.morethanchat.mapper.ChatMessageMapper;
-import com.younggam.morethanchat.repository.ChatMessageRepository;
+import com.younggam.morethanchat.repository.InquiriesRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ import static com.younggam.morethanchat.utils.ResponseMessage.NOT_ACCESS_CHAT_ME
 @RequiredArgsConstructor
 public class ChatMessageService {
 
-    private final ChatMessageMapper chatMessageMapper;
+    private final ChatMessageMapper chatMessageMapper; //inquiries Save 로직도 담기
+    private final InquiriesRepository inquiriesRepository;
 
     public List<ChatMessageShowResDto> getChatMessage(Long providerId,String chatRoomCode){
 
@@ -29,5 +31,9 @@ public class ChatMessageService {
         return chatMessageMapper.getChatMessages(chatRoomCode).stream()
                 .map(ChatMessageShowResDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public Long saveChatReply(Long providerId, ChatMessageReplyReqDto chatMessageReplyReqDto){
+        
     }
 }

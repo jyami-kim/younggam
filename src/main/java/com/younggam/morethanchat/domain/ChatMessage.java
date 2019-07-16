@@ -1,9 +1,8 @@
 package com.younggam.morethanchat.domain;
 
-import com.younggam.morethanchat.utils.DateConverter;
+import com.younggam.morethanchat.utils.TypeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -26,15 +25,14 @@ public class ChatMessage {
     private boolean writer;
 
     @NotNull
-    @Column(name = "chat_message")
-    private String chatMessage;
+    private String chat_message;
 
     @NotNull
     @Column(name = "written_date")
     private String writtenDate;
 
     private ChatMessage() {
-        this.writtenDate = DateConverter.getNowAllDate();
+        this.writtenDate = TypeConverter.getNowAllDate();
     }
 
     public boolean getWriter(){

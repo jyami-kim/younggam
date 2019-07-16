@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import static com.younggam.morethanchat.utils.DateConverter.getNowAllDate;
+import static com.younggam.morethanchat.utils.TypeConverter.getNowAllDate;
 
 @AllArgsConstructor
 @NoArgsConstructor

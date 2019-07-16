@@ -1,6 +1,6 @@
 package com.younggam.morethanchat.domain;
 
-import com.younggam.morethanchat.utils.DateConverter;
+import com.younggam.morethanchat.utils.TypeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -57,7 +57,7 @@ public class ProviderUser {
     private boolean status;
 
     private ProviderUser() {
-        this.regDate = DateConverter.getNowAllDate();
+        this.regDate = TypeConverter.getNowAllDate();
         this.status = true;
     }
 
