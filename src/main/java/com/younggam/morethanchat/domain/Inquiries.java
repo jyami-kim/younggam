@@ -17,11 +17,11 @@ public class Inquiries {
 
     @NotNull
     @Column(name = "provider_id")
-    private String providerId;
+    private Long providerId;
 
     @NotNull
     @Column(name = "customer_id")
-    private String customerId;
+    private Long customerId;
 
     private String inquiry;
 
