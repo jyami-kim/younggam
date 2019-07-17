@@ -6,6 +6,7 @@ import com.younggam.morethanchat.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static com.younggam.morethanchat.utils.TypeConverter.getNowDate;
@@ -13,7 +14,7 @@ import static com.younggam.morethanchat.utils.ResponseMessage.*;
 
 @RestController
 @Slf4j
-@RequestMapping("/auth/order")
+@RequestMapping("auth/order")
 @RequiredArgsConstructor
 public class OrderController {
 
@@ -28,11 +29,11 @@ public class OrderController {
     }
 
     @GetMapping("main/short")
-    public ResponseDto getOrderShortest(@RequestAttribute Long providerId, @RequestParam(required = false) String searchDate) {
+    public ResponseEntity getOrderShortest(@RequestAttribute Long providerId, @RequestParam(required = false) String searchDate) {
         if (searchDate == null)
             searchDate = getNowDate();
         OrderManageResultResDto mainOrderResult = orderService.getTodayOrderShort(providerId, searchDate);
-        return ResponseDto.of(HttpStatus.OK, messageCode(GET_TODAY_ORDER_SUCCESS, getNowDate()), mainOrderResult);
+        return new ResponseEntity(ResponseDto.of(HttpStatus.OK, messageCode(GET_TODAY_ORDER_SUCCESS, getNowDate()), mainOrderResult),HttpStatus.OK);
     }
 
     @PutMapping("status/{orderId}")

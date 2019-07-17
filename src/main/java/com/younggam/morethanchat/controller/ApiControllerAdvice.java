@@ -4,6 +4,7 @@ import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ApiControllerAdvice {
 
     @ExceptionHandler(CustomAuthException.class)
-    public ResponseDto handleExistUserException(CustomAuthException ex) {
-        return ResponseDto.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage());
+    public ResponseEntity<ResponseDto> handleCustomAuthException(CustomAuthException ex) {
+        return new ResponseEntity<>(ResponseDto.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage()), HttpStatus.OK);
     }
 
     @ExceptionHandler(NotAccessException.class)

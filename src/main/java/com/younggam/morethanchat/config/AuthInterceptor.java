@@ -20,7 +20,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
     private final JwtFactory jwtFactory;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler){
 
         log.info(request.getHeader("Authorization"));
 
@@ -29,8 +29,7 @@ public class AuthInterceptor extends HandlerInterceptorAdapter {
                 .orElseThrow(() -> new CustomAuthException(ResponseMessage.AUTH));
 
         request.setAttribute("providerId", providerId);
-
-        return super.preHandle(request, response, handler);
+        return true;
     }
 
 }

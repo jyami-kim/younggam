@@ -17,15 +17,16 @@ import static com.younggam.morethanchat.utils.ResponseMessage.messageCode;
 
 @RestController
 @Slf4j
-@RequestMapping("/auth/store")
+@RequestMapping("auth/store")
 @RequiredArgsConstructor
 public class StoreController {
 
     private final StoreService storeService;
 
-    @RequestMapping(value = "/basicInfo", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = "/basicInfo", method = RequestMethod.POST, consumes =
+            {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseDto saveBasicInformation(@RequestAttribute Long providerId,
-                                            @RequestPart(value = "storeBasicInfo") StoreBasicInfoReqDto storeBasicInfoReqDto,
+                                            StoreBasicInfoReqDto storeBasicInfoReqDto,
                                             @RequestPart(value = "botImageFile", required = false) MultipartFile botImageFile) throws IOException {
         if (botImageFile != null) storeBasicInfoReqDto.setBotImageFile(botImageFile);
 
