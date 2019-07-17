@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 public class Store {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "provider_id")
     private Long providerId;
 
@@ -58,7 +57,6 @@ public class Store {
 
     @Column(name = "bot_intro")
     private String botIntro;
-
 
     @Column(name = "bot_image")
     private String botImage;

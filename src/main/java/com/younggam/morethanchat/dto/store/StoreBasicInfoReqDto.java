@@ -5,6 +5,8 @@ import com.younggam.morethanchat.domain.Store;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Random;
 
@@ -18,16 +20,15 @@ public class StoreBasicInfoReqDto {
     private String name;
     private String description;
     private String phoneNum;
-
     private String businessDay;
-
     private String reservationStart;
     private String reservationEnd;
-
     private boolean earlyReservation;
-
     private String botIntro;
-    private String botImage;
+    @Setter
+    private MultipartFile botImageFile; //이미지 사진 객체
+    @Setter
+    private String botImage; //이미지 사진 저장 url 주소
 
     public Store toEntity(ProviderUser providerUser) {
         return Store.builder()

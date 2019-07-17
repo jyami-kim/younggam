@@ -7,6 +7,7 @@ public class ResponseMessage {
         return additional+" : " + message;
     }
 
+    public static final String FILE_IO_FAILS = "file IO를 실패했습니다.";
 
     public static final String READ_USER = "회원 정보 조회 성공";
     public static final String NOT_FOUND_USER = "회원을 찾을 수 없습니다.";

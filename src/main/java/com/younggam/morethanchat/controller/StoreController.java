@@ -6,10 +6,14 @@ import com.younggam.morethanchat.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import static com.younggam.morethanchat.utils.ResponseMessage.*;
+import java.io.IOException;
+
+import static com.younggam.morethanchat.utils.ResponseMessage.SAVE_STORE_BASIC_INFO;
+import static com.younggam.morethanchat.utils.ResponseMessage.messageCode;
 
 @RestController
 @Slf4j
@@ -19,9 +23,14 @@ public class StoreController {
 
     private final StoreService storeService;
 
-    @PostMapping("basicInfo")
-    public ResponseDto saveBasicInformation(@RequestAttribute Long providerId, @RequestBody StoreBasicInfoReqDto storeBasicInfoReqDto){
+    @RequestMapping(value = "/basicInfo", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseDto saveBasicInformation(@RequestAttribute Long providerId,
+                                            @RequestPart(value = "storeBasicInfo") StoreBasicInfoReqDto storeBasicInfoReqDto,
+                                            @RequestPart(value = "botImageFile", required = false) MultipartFile botImageFile) throws IOException {
+        if (botImageFile != null) storeBasicInfoReqDto.setBotImageFile(botImageFile);
+
         String botId = storeService.saveBasicInfo(providerId, storeBasicInfoReqDto);
+
         return ResponseDto.of(HttpStatus.OK, messageCode(SAVE_STORE_BASIC_INFO, botId));
     }
 

@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Getter
+@Entity
 @AllArgsConstructor
 public class Inquiries {
     @Id
