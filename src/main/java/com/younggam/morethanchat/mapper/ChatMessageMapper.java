@@ -19,11 +19,4 @@ public interface ChatMessageMapper {
             " #{chatMessageReplyReqDto.replyMessage}, #{chatMessageReplyReqDto.regDate});")
     @Options(useGeneratedKeys = true, keyColumn = "id")
     Long saveChatMessage(@Param("chatMessageReplyReqDto")ChatMessageReplyReqDto chatMessageReplyReqDto);
-
-    @Insert("INSERT INTO inquiries_reply(inquiries_id, reply, reg_date) " +
-            "VALUES(#{inquiriesId}, #{chatMessageReplyReqDto.replyMessage}, #{chatMessageReplyReqDto.regDate});")
-    @Options(useGeneratedKeys = true, keyColumn = "id")
-    Long saveInquiriesReply(@Param("chatMessageReplyReqDto")ChatMessageReplyReqDto chatMessageReplyReqDto,
-                            @Param("inquiriesId") Long inquiriesId);
-
 }

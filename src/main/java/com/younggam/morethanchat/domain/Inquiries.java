@@ -1,12 +1,13 @@
 package com.younggam.morethanchat.domain;
 
-import com.younggam.morethanchat.utils.TypeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
+import static com.younggam.morethanchat.utils.TypeConverter.getNowAllDate;
 
 @Getter
 @Entity
@@ -33,4 +34,7 @@ public class Inquiries {
     @Setter
     private boolean read;
 
+    private Inquiries() {
+        this.regDate = getNowAllDate();
+    }
 }

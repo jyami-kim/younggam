@@ -3,7 +3,6 @@ package com.younggam.morethanchat.controller;
 import com.younggam.morethanchat.dto.AuthTokenDto;
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.dto.chatMessage.ChatMessageReplyReqDto;
-import com.younggam.morethanchat.dto.chatMessage.ChatMessageReplyResDto;
 import com.younggam.morethanchat.dto.chatMessage.ChatMessageShowResDto;
 import com.younggam.morethanchat.exception.TokenException;
 import com.younggam.morethanchat.service.ChatMessageService;
@@ -18,6 +17,7 @@ import java.util.List;
 
 import static com.younggam.morethanchat.utils.ResponseMessage.READ_CHAT_MESSAGE_SUCCESS;
 import static com.younggam.morethanchat.utils.ResponseMessage.SAVE_CHAT_BOT_REPLY_SUCCESS;
+import static com.younggam.morethanchat.utils.TypeConverter.getNowAllDate;
 
 @RestController
 @Slf4j
@@ -28,7 +28,6 @@ public class ChatMessageController {
     private final ChatMessageService chatMessageService;
     private final JwtFactory jwtFactory;
 
-
     @GetMapping("{chatRoomCode}")
     public ResponseDto chatBotMessageSet(AuthTokenDto authTokenDto, @PathVariable String chatRoomCode) {
         Long providerId = checkAuth(authTokenDto);
@@ -38,9 +37,10 @@ public class ChatMessageController {
 
     @PostMapping()
     public ResponseDto saveReply(AuthTokenDto authTokenDto, @RequestBody ChatMessageReplyReqDto chatMessageReplyReqDto) {
+        chatMessageReplyReqDto.setRegDate(getNowAllDate());
         Long providerId = checkAuth(authTokenDto);
-        ChatMessageReplyResDto chatMessageReplyResDto = chatMessageService.saveChatReply(providerId, chatMessageReplyReqDto);
-        return ResponseDto.of(HttpStatus.OK, SAVE_CHAT_BOT_REPLY_SUCCESS, chatMessageReplyResDto);
+        Long chatReplyMessageId = chatMessageService.saveChatReply(providerId, chatMessageReplyReqDto);
+        return ResponseDto.of(HttpStatus.OK, SAVE_CHAT_BOT_REPLY_SUCCESS, chatReplyMessageId);
     }
 
     private Long checkAuth(AuthTokenDto authTokenDto) {

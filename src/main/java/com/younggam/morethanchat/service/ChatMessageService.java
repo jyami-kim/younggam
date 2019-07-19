@@ -2,7 +2,6 @@ package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.Inquiries;
 import com.younggam.morethanchat.dto.chatMessage.ChatMessageReplyReqDto;
-import com.younggam.morethanchat.dto.chatMessage.ChatMessageReplyResDto;
 import com.younggam.morethanchat.dto.chatMessage.ChatMessageShowResDto;
 import com.younggam.morethanchat.exception.NotAccessException;
 import com.younggam.morethanchat.mapper.ChatMessageMapper;
@@ -36,27 +35,19 @@ public class ChatMessageService {
     }
 
     @Transactional
-    public ChatMessageReplyResDto saveChatReply(Long providerId, ChatMessageReplyReqDto chatMessageReplyReqDto) {
+    public Long saveChatReply(Long providerId, ChatMessageReplyReqDto chatMessageReplyReqDto) {
 
         checkCanAccessChatBot(providerId, chatMessageReplyReqDto.getChatRoomCode());
-
         Long chatMessageId = chatMessageMapper.saveChatMessage(chatMessageReplyReqDto);
-
-        Inquiries inquiries = inquiriesRepository.findByCustomerIdAndProviderId
+        List<Inquiries> inquiries = inquiriesRepository.findAllByCustomerIdAndProviderId
                 (chatMessageReplyReqDto.getCustomerId(), providerId)
                 .orElseThrow(() -> new NotAccessException(NOT_ACCESS_CHAT_MESSAGE_CUSTOMER));
+        for (Inquiries inquire : inquiries) {
+            inquire.setRead(true);
+        }
+        inquiriesRepository.saveAll(inquiries);
 
-//        inquiries.stream()
-//                .filter(i -> !i.isRead())
-//                .map()
-
-        inquiries.setRead(true);
-
-        inquiriesRepository.save(inquiries);
-
-        Long inquiriesReplyId = chatMessageMapper.saveInquiriesReply(chatMessageReplyReqDto, inquiries.getId());
-
-        return new ChatMessageReplyResDto(chatMessageId ,inquiries.getId(), inquiriesReplyId);
+        return chatMessageId;
     }
 
     private void checkCanAccessChatBot(Long providerId, String chatRoomCode) {
