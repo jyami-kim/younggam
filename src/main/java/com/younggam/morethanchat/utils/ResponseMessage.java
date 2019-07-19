@@ -67,6 +67,8 @@ public class ResponseMessage {
 
     public static final String NOT_ACCESS_CHAT_MESSAGE_CUSTOMER = "챗봇 코드와 customerId가 일치하지 않음";
 
+    public static final String IS_EMPTY_INQUIRE = "답변할 문의사항이 없습니다";
+
     /**
      * Products 관련
      * */

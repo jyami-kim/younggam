@@ -30,7 +30,7 @@ public interface OrderMapper {
     @Select({"<script>",
             "SELECT i.customer_id",
             "FROM inquiries AS i",
-            "WHERE provider_id = #{providerId} AND i.read=1 AND customer_id IN",
+            "WHERE provider_id = #{providerId} AND i.read_check=1 AND customer_id IN",
             "<foreach item='item' index='index' collection='customerIds'",
             "open='(' separator=',' close=')'>",
             "#{item}",

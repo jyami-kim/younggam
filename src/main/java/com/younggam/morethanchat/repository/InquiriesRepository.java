@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface InquiriesRepository extends JpaRepository<Inquiries, Long> {
-    Optional<List<Inquiries>> findAllByCustomerIdAndProviderId(@NotNull Long customerId, @NotNull Long providerId);
+    Optional<List<Inquiries>> findAllByCustomerIdAndProviderIdAndReadCheckIsFalse(@NotNull Long customerId, @NotNull Long providerId);
 }

@@ -25,6 +25,7 @@ public class Inquiries {
     @Column(name = "customer_id")
     private Long customerId;
 
+    @Column(name="inquiry")
     private String inquiry;
 
     @NotNull
@@ -32,7 +33,8 @@ public class Inquiries {
     private String regDate;
 
     @Setter
-    private boolean read;
+    @Column(name="read_check")
+    private boolean readCheck;
 
     private Inquiries() {
         this.regDate = getNowAllDate();

@@ -7,12 +7,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-
+@Entity
 @Getter
 @NoArgsConstructor
 @Table(name = "chatroom")
 @AllArgsConstructor
 public class ChatRoom {
+    @Id
     @NotNull
     @Column(name = "chatroom_code")
     private String chatRoomCode;
