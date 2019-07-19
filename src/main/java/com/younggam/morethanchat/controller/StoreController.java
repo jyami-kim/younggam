@@ -1,8 +1,12 @@
 package com.younggam.morethanchat.controller;
 
+import com.younggam.morethanchat.dto.AuthTokenDto;
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.dto.store.StoreBasicInfoReqDto;
+import com.younggam.morethanchat.exception.TokenException;
 import com.younggam.morethanchat.service.StoreService;
+import com.younggam.morethanchat.utils.JwtFactory;
+import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,12 +26,17 @@ import static com.younggam.morethanchat.utils.ResponseMessage.messageCode;
 public class StoreController {
 
     private final StoreService storeService;
+    private final JwtFactory jwtFactory;
 
     @RequestMapping(value = "/basicInfo", method = RequestMethod.POST, consumes =
             {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseDto saveBasicInformation(@RequestAttribute Long providerId,
+    public ResponseDto saveBasicInformation(AuthTokenDto authTokenDto,
                                             StoreBasicInfoReqDto storeBasicInfoReqDto,
                                             @RequestPart(value = "botImageFile", required = false) MultipartFile botImageFile) throws IOException {
+
+        Long providerId = jwtFactory.getUserId(authTokenDto.getToken())
+                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
+
         if (botImageFile != null) storeBasicInfoReqDto.setBotImageFile(botImageFile);
 
         String botId = storeService.saveBasicInfo(providerId, storeBasicInfoReqDto);
