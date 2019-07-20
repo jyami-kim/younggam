@@ -56,7 +56,7 @@ public class StoreController {
     public ResponseDto checkIfNameExisted(AuthTokenDto authTokenDto, @RequestParam String name) {
         Long providerId = checkAuth(authTokenDto);
         storeService.checkNameIsUnique(name, providerId);
-        return ResponseDto.of(HttpStatus.OK, SAVE_STORE_BASIC_INFO, CHAT_NAME_IS_UNIQUE);
+        return ResponseDto.of(HttpStatus.OK, CHAT_NAME_IS_UNIQUE);
     }
 
     private Long checkAuth(AuthTokenDto authTokenDto) {

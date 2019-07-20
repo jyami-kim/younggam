@@ -26,7 +26,6 @@ public class ResponseMessage {
      */
     public static final String READ_STORE_BASIC_INFO_SUCCESS = "store의 기본정보 조회 성공";
     public static final String SAVE_STORE_BASIC_INFO = "store의 기본정보 저장 완료";
-    public static final String STORE_BASIC_INFO_IS_ALREADY_EXIST = "챗봇에 대한 기본정보가 이미 존재합니다. 기본정보 수정을 이용하세요";
     public static final String ALREADY_EXISTED_STORE = "이미 존재하는 store 입니다.";
 
     public static final String CHAT_NAME_IS_ALREADY_EXIST = "챗봇 이름이 이미 존재합니다.";

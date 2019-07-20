@@ -33,18 +33,22 @@ public class Store {
     private String detailedAddress;
 
     @Setter
+    @NotNull
     @Column(name = "business_day")
     private String businessDay;
 
     @Setter
+    @NotNull
     @Column(name = "reservation_start")
     private String reservationStart;
 
     @Setter
+    @NotNull
     @Column(name = "reservation_end")
     private String reservationEnd;
 
     @Setter
+    @NotNull
     @Column(name = "early_reservation")
     private boolean earlyReservation;
 
@@ -63,10 +67,12 @@ public class Store {
     private String botId;
 
     @Setter
+    @NotNull
     @Column(name = "bot_intro")
     private String botIntro;
 
     @Setter
+    @NotNull
     @Column(name = "bot_image")
     private String botImage;
 
