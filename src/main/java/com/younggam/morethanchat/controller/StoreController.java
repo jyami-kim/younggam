@@ -18,8 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
-import static com.younggam.morethanchat.utils.ResponseMessage.READ_STORE_BASIC_INFO_SUCCESS;
-import static com.younggam.morethanchat.utils.ResponseMessage.SAVE_STORE_BASIC_INFO;
+import static com.younggam.morethanchat.utils.ResponseMessage.*;
 import static com.younggam.morethanchat.utils.TypeConverter.stringToStoreBasicInfoReqDto;
 
 @RestController
@@ -53,6 +52,12 @@ public class StoreController {
         return ResponseDto.of(HttpStatus.OK, SAVE_STORE_BASIC_INFO, storeBasicInfoSaveResDto);
     }
 
+    @GetMapping()
+    public ResponseDto checkIfNameExisted(AuthTokenDto authTokenDto, @RequestParam String name) {
+        Long providerId = checkAuth(authTokenDto);
+        storeService.checkNameIsUnique(name, providerId);
+        return ResponseDto.of(HttpStatus.OK, SAVE_STORE_BASIC_INFO, CHAT_NAME_IS_UNIQUE);
+    }
 
     private Long checkAuth(AuthTokenDto authTokenDto) {
         return jwtFactory.getUserId(authTokenDto.getToken())

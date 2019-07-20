@@ -30,7 +30,7 @@ public class StoreBasicInfoReqDto {
     @Setter
     private String botImage; //이미지 사진 저장 url 주소
 
-    public Store toEntity(ProviderUser providerUser) {
+    public Store toEntity(ProviderUser providerUser, String botId) {
         return Store.builder()
                 .providerId(providerUser.getId())
                 .name(this.name)
@@ -40,10 +40,23 @@ public class StoreBasicInfoReqDto {
                 .reservationStart(this.reservationStart)
                 .reservationEnd(this.reservationEnd)
                 .earlyReservation(this.earlyReservation)
-                .botId(this.name + new Random().nextInt(100)) //초기 생성시 botID는 랜덤값으로 부여! 이후 bot 생성하기에서 fix하기
+                .botId(botId) //초기 생성시 botID는 랜덤값으로 부여! 이후 bot 생성하기에서 fix하기
                 .botIntro(this.botIntro)
                 .botImage(this.botImage)
                 .regDate(getNowAllDate())
                 .build();
+    }
+
+    public Store toEntityEdit(Store store){
+        store.setBotImage(this.botImage);
+        store.setBotIntro(this.botIntro);
+        store.setBusinessDay(this.businessDay);
+        store.setDescription(this.description);
+        store.setReservationStart(this.reservationStart);
+        store.setReservationEnd(this.reservationEnd);
+        store.setEarlyReservation(this.earlyReservation);
+        store.setPhoneNum(this.phoneNum);
+        store.setRegDate(getNowAllDate());
+        return store;
     }
 }
