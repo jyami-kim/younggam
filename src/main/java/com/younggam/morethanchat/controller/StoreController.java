@@ -3,6 +3,8 @@ package com.younggam.morethanchat.controller;
 import com.younggam.morethanchat.dto.AuthTokenDto;
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.dto.store.StoreBasicInfoReqDto;
+import com.younggam.morethanchat.dto.store.StoreBasicInfoResDto;
+import com.younggam.morethanchat.dto.store.StoreBasicInfoSaveResDto;
 import com.younggam.morethanchat.exception.TokenException;
 import com.younggam.morethanchat.service.StoreService;
 import com.younggam.morethanchat.utils.JwtFactory;
@@ -16,8 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+import static com.younggam.morethanchat.utils.ResponseMessage.READ_STORE_BASIC_INFO_SUCCESS;
 import static com.younggam.morethanchat.utils.ResponseMessage.SAVE_STORE_BASIC_INFO;
-import static com.younggam.morethanchat.utils.ResponseMessage.messageCode;
+import static com.younggam.morethanchat.utils.TypeConverter.stringToStoreBasicInfoReqDto;
 
 @RestController
 @Slf4j
@@ -28,20 +31,31 @@ public class StoreController {
     private final StoreService storeService;
     private final JwtFactory jwtFactory;
 
-    @RequestMapping(value = "/basicInfo", method = RequestMethod.POST, consumes =
-            {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseDto saveBasicInformation(AuthTokenDto authTokenDto,
-                                            StoreBasicInfoReqDto storeBasicInfoReqDto,
-                                            @RequestPart(value = "botImageFile", required = false) MultipartFile botImageFile) throws IOException {
-
-        Long providerId = jwtFactory.getUserId(authTokenDto.getToken())
-                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
-
-        if (botImageFile != null) storeBasicInfoReqDto.setBotImageFile(botImageFile);
-
-        String botId = storeService.saveBasicInfo(providerId, storeBasicInfoReqDto);
-
-        return ResponseDto.of(HttpStatus.OK, messageCode(SAVE_STORE_BASIC_INFO, botId));
+    @GetMapping("basicInfo")
+    public ResponseDto getBasicInformation(AuthTokenDto authTokenDto) {
+        Long providerId = checkAuth(authTokenDto);
+        StoreBasicInfoResDto basicInfo = storeService.getBasicInfo(providerId);
+        return ResponseDto.of(HttpStatus.OK, READ_STORE_BASIC_INFO_SUCCESS, basicInfo);
     }
 
+    @RequestMapping(value = "/basicInfo", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseDto saveBasicInformation(AuthTokenDto authTokenDto,
+                                            @RequestPart String storeBasicInfoReqDtoString,
+                                            @RequestPart(value = "botImageFile", required = false) MultipartFile botImageFile) throws IOException {
+        Long providerId = checkAuth(authTokenDto);
+        StoreBasicInfoReqDto storeBasicInfoReqDto = stringToStoreBasicInfoReqDto(storeBasicInfoReqDtoString);
+
+        if (botImageFile != null)
+            storeBasicInfoReqDto.setBotImageFile(botImageFile);
+
+        StoreBasicInfoSaveResDto storeBasicInfoSaveResDto = storeService.saveBasicInfo(providerId, storeBasicInfoReqDto);
+
+        return ResponseDto.of(HttpStatus.OK, SAVE_STORE_BASIC_INFO, storeBasicInfoSaveResDto);
+    }
+
+
+    private Long checkAuth(AuthTokenDto authTokenDto) {
+        return jwtFactory.getUserId(authTokenDto.getToken())
+                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
+    }
 }

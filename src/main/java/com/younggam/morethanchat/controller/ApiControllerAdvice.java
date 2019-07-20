@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import sun.invoke.empty.Empty;
 
 
 @RestControllerAdvice
@@ -16,6 +17,11 @@ public class ApiControllerAdvice {
     @ExceptionHandler(CustomAuthException.class)
     public ResponseEntity<ResponseDto> handleCustomAuthException(CustomAuthException ex) {
         return new ResponseEntity<>(ResponseDto.of(HttpStatus.NOT_ACCEPTABLE, ex.getMessage()), HttpStatus.OK);
+    }
+
+    @ExceptionHandler(EmptyException.class)
+    public ResponseEntity<ResponseDto> handleEmptyException(EmptyException ex){
+        return new ResponseEntity<>(ResponseDto.of(HttpStatus.RESET_CONTENT, ex.getMessage()), HttpStatus.OK);
     }
 
     @ExceptionHandler(NotAccessException.class)
