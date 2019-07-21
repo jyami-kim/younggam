@@ -54,8 +54,8 @@ public class StoreController {
 
     @GetMapping()
     public ResponseDto checkIfNameExisted(AuthTokenDto authTokenDto, @RequestParam String name) {
-        Long providerId = checkAuth(authTokenDto);
-        storeService.checkNameIsUnique(name, providerId);
+        checkAuth(authTokenDto);
+        storeService.checkNameIsUnique(name);
         return ResponseDto.of(HttpStatus.OK, CHAT_NAME_IS_UNIQUE);
     }
 

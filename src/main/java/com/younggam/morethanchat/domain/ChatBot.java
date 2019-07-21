@@ -1,12 +1,9 @@
 package com.younggam.morethanchat.domain;
 
-import com.younggam.morethanchat.exception.NotValidateTypeException;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-import static com.younggam.morethanchat.utils.ResponseMessage.CHATBOT_CATEGORY_IS_NOT_VALID;
 
 @Getter
 @NoArgsConstructor

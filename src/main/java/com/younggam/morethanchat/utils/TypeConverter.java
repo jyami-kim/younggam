@@ -1,6 +1,7 @@
 package com.younggam.morethanchat.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.younggam.morethanchat.dto.product.ProductSaveReqDto;
 import com.younggam.morethanchat.dto.store.StoreBasicInfoReqDto;
 import com.younggam.morethanchat.exception.NotValidateTypeException;
 
@@ -31,4 +32,15 @@ public class TypeConverter {
             throw new NotValidateTypeException(INVALIDE_JSON_PARSING_TYPE);
         }
     }
+
+    public static ProductSaveReqDto stringToProductSaveReqDto(String objectString) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(objectString, ProductSaveReqDto.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new NotValidateTypeException(INVALIDE_JSON_PARSING_TYPE);
+        }
+    }
+
 }

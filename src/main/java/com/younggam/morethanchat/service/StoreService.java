@@ -31,15 +31,14 @@ public class StoreService {
     private final FileUploadService fileUploadService;
 
     public StoreBasicInfoResDto getBasicInfo(Long providerId) {
-        providerUserCheck(providerId);
         Store store = storeRepository.findById(providerId)
                 .orElseThrow(() -> new EmptyException(ALREADY_EXISTED_STORE));
         return new StoreBasicInfoResDto(store);
     }
 
+
     @Transactional
     public StoreBasicInfoSaveResDto saveBasicInfo(Long providerId, StoreBasicInfoReqDto storeBasicInfoReqDto) throws IOException {
-        ProviderUser providerUser = providerUserCheck(providerId);
 
         Store store = new Store();
 
@@ -61,19 +60,14 @@ public class StoreService {
             do {
                 botId = storeBasicInfoReqDto.getName() + new Random().nextInt(100);
             } while (checkBotIdIsNotUnique(botId));
-            store = storeBasicInfoReqDto.toEntity(providerUser, botId);
+            store = storeBasicInfoReqDto.toEntity(providerId, botId);
         }
         store = storeRepository.save(store);
 
         return new StoreBasicInfoSaveResDto(store);
     }
 
-    public void checkNameIsUnique(String name, Long providerId) {
-        providerUserCheck(providerId);
-        checkNameIsUnique(name);
-    }
-
-    private void checkNameIsUnique(String name) {
+    public void checkNameIsUnique(String name) {
         storeRepository.findByName(name).ifPresent(x -> {
             throw new AlreadyUserException(CHAT_NAME_IS_ALREADY_EXIST);
         });
@@ -81,11 +75,6 @@ public class StoreService {
 
     private boolean checkBotIdIsNotUnique(String botId) {
         return storeRepository.findByBotId(botId).isPresent();
-    }
-
-    private ProviderUser providerUserCheck(Long providerId) {
-        return providerUserRepository.findById(providerId)
-                .orElseThrow(() -> new NotFoundException(NOT_FOUND_USER));
     }
 
 }

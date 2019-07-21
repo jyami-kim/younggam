@@ -30,9 +30,9 @@ public class StoreBasicInfoReqDto {
     @Setter
     private String botImage; //이미지 사진 저장 url 주소
 
-    public Store toEntity(ProviderUser providerUser, String botId) {
+    public Store toEntity(Long providerUserId, String botId) {
         return Store.builder()
-                .providerId(providerUser.getId())
+                .providerId(providerUserId)
                 .name(this.name)
                 .description(this.description)
                 .phoneNum(this.phoneNum)

@@ -58,6 +58,10 @@ public class ResponseMessage {
      */
 
     public static final String PRODUCT_IS_EMPTY_IN_DATE = "해당 날짜에는 상품이 없습니다. 상품을 등록해주세요";
+    public static final String SAVE_PRODUCT = "product 등록완료";
+
+    public static final String IO_EXCEPTION= "파일 업로드중 IO EXCEPTION";
+
     /**
      * order 관련
      */
