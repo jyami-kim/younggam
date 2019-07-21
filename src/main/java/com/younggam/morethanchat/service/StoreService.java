@@ -27,12 +27,11 @@ import static com.younggam.morethanchat.utils.ResponseMessage.*;
 public class StoreService {
 
     private final StoreRepository storeRepository;
-    private final ProviderUserRepository providerUserRepository;
     private final FileUploadService fileUploadService;
 
     public StoreBasicInfoResDto getBasicInfo(Long providerId) {
         Store store = storeRepository.findById(providerId)
-                .orElseThrow(() -> new EmptyException(ALREADY_EXISTED_STORE));
+                .orElseThrow(() -> new EmptyException(FIRST_FORMAT_STORE));
         return new StoreBasicInfoResDto(store);
     }
 

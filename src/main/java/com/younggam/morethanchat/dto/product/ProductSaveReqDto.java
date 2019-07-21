@@ -23,7 +23,7 @@ public class ProductSaveReqDto {
 
     public Product toEntity(Long providerId) {
         return Product.builder()
-                .provider_id(providerId)
+                .providerId(providerId)
                 .name(this.name)
                 .description(this.description)
                 .price(this.price)

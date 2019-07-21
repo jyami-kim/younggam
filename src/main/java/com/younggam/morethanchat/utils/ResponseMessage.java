@@ -27,6 +27,7 @@ public class ResponseMessage {
     public static final String READ_STORE_BASIC_INFO_SUCCESS = "store의 기본정보 조회 성공";
     public static final String SAVE_STORE_BASIC_INFO = "store의 기본정보 저장 완료";
     public static final String ALREADY_EXISTED_STORE = "이미 존재하는 store 입니다.";
+    public static final String FIRST_FORMAT_STORE = "처음부터 만들어야하는 store 입니다.";
 
     public static final String CHAT_NAME_IS_ALREADY_EXIST = "챗봇 이름이 이미 존재합니다.";
     public static final String CHAT_NAME_IS_UNIQUE = "챗봇 이름을 사용할 수 있습니다.";
@@ -57,10 +58,10 @@ public class ResponseMessage {
      * Products 관련
      */
 
-    public static final String PRODUCT_IS_EMPTY_IN_DATE = "해당 날짜에는 상품이 없습니다. 상품을 등록해주세요";
     public static final String SAVE_PRODUCT = "product 등록완료";
-
-    public static final String IO_EXCEPTION= "파일 업로드중 IO EXCEPTION";
+    public static final String READ_PRODUCT_SUCCESS = "product 리스트 조회 성공";
+    public static final String IO_EXCEPTION = "파일 업로드중 IO EXCEPTION";
+    public static final String NOT_FOUND_PRODUCT = "등록된 productList가 없습니다.";
 
     /**
      * order 관련

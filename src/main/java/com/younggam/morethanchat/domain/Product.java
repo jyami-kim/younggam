@@ -21,7 +21,7 @@ public class Product {
 
     @Column(name = "provider_id")
     @NotNull
-    private Long provider_id;
+    private Long providerId;
 
     @NotNull
     private String name;
