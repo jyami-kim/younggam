@@ -62,6 +62,10 @@ public class ResponseMessage {
     public static final String READ_PRODUCT_SUCCESS = "product 리스트 조회 성공";
     public static final String IO_EXCEPTION = "파일 업로드중 IO EXCEPTION";
     public static final String NOT_FOUND_PRODUCT = "등록된 productList가 없습니다.";
+    public static final String NOT_FOUND_TODAY_PRODUCT = "등록된 오늘의 productList가 없습니다.";
+
+    public static final String SAVE_TODAY_PRODUCT_SUCCESS = "오늘의 product 등록완료";
+    public static final String READ_TODAY_PRODUCT_SUCCESS = "오늘의 product 리스트 조회 성공";
 
     /**
      * order 관련

@@ -4,6 +4,7 @@ import com.younggam.morethanchat.dto.AuthTokenDto;
 import com.younggam.morethanchat.dto.ResponseDto;
 import com.younggam.morethanchat.dto.product.ProductResDto;
 import com.younggam.morethanchat.dto.product.ProductSaveReqDto;
+import com.younggam.morethanchat.dto.product.TodayProductReqDto;
 import com.younggam.morethanchat.exception.TokenException;
 import com.younggam.morethanchat.service.ProductService;
 import com.younggam.morethanchat.utils.JwtFactory;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static com.younggam.morethanchat.utils.ResponseMessage.*;
+import static com.younggam.morethanchat.utils.TypeConverter.getNowDate;
 import static com.younggam.morethanchat.utils.TypeConverter.stringToProductSaveReqDto;
 
 @RestController
@@ -58,10 +60,29 @@ public class ProductController {
     }
 
 
+    @PostMapping("today")
+    public ResponseDto saveAndDeleteTodayProduct(AuthTokenDto authTokenDto,
+                                                 @RequestBody TodayProductReqDto todayProductReqDto) {
+        Long providerId = checkAuth(authTokenDto);
+
+        log.info(todayProductReqDto.getProductIds().toString());
+        log.info(todayProductReqDto.getRegDate());
+
+        productService.saveTodayProduct(providerId, todayProductReqDto);
+        return ResponseDto.of(HttpStatus.OK, SAVE_TODAY_PRODUCT_SUCCESS);
+    }
+
+    @GetMapping("today")
+    public ResponseDto getTodayProduct(AuthTokenDto authTokenDto, @RequestParam(required = false) String searchDate) {
+        Long providerId = checkAuth(authTokenDto);
+        if (searchDate == null)
+            searchDate = getNowDate();
+        List<ProductResDto> todayStoreProduct = productService.getTodayStoreProduct(providerId, searchDate);
+        return ResponseDto.of(HttpStatus.OK, READ_TODAY_PRODUCT_SUCCESS, todayStoreProduct);
+    }
 
     private Long checkAuth(AuthTokenDto authTokenDto) {
         return jwtFactory.getUserId(authTokenDto.getToken())
                 .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
     }
-
 }
