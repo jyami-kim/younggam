@@ -67,7 +67,7 @@ public class ChatBotController {
                                                 @RequestBody ChatBotMessageWithOptionReqDto chatBotMessageWithOptionReqDto) {
         Long providerId = checkAuth(authTokenDto);
         chatBotService.saveChatBotAnswerMessage(providerId, chatBotMessageWithOptionReqDto);
-        return ResponseDto.of(HttpStatus.OK, messageCode("manage", SAVE_CHAT_MESSAGE_SUCCESS));
+        return ResponseDto.of(HttpStatus.OK, messageCode("answer", SAVE_CHAT_MESSAGE_SUCCESS));
     }
 
     private Long checkAuth(AuthTokenDto authTokenDto) {
