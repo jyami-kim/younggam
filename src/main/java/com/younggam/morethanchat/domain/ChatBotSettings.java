@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 public class ChatBotSettings {
     @NotNull
-    @Column(name = "provider_id")
+    @Column(name = "providerId")
     private Long providerId;
     @NotNull
     @Column(name = "pm_morethan")

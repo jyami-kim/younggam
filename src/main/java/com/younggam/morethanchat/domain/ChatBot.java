@@ -16,8 +16,8 @@ public class ChatBot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    @Column(name = "provider_id")
-    private Long provider_id;
+    @Column(name = "providerId")
+    private Long providerId;
     @NotNull
     private String category;
     @Setter

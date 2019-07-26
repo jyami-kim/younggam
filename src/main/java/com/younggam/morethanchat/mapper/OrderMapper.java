@@ -24,13 +24,13 @@ public interface OrderMapper {
             "INNER JOIN customer_user AS cu ON cu.id = cr.customer_id " +
             "INNER JOIN order_detail AS od ON os.id = od.order_id " +
             "INNER JOIN product AS p ON p.id = od.product_id " +
-            "WHERE cr.provider_id = #{providerId} AND om.pickup_date LIKE #{pickupDate} GROUP BY od.order_id;")
+            "WHERE cr.providerId = #{providerId} AND om.pickup_date LIKE #{pickupDate} GROUP BY od.order_id;")
     List<OrderManageResDto> getMainPage(@Param("providerId") final Long providerId, @Param("pickupDate") final String pickupDate);
 
     @Select({"<script>",
             "SELECT i.customer_id",
             "FROM inquiries AS i",
-            "WHERE provider_id = #{providerId} AND i.read_check=1 AND customer_id IN",
+            "WHERE providerId = #{providerId} AND i.read_check=1 AND customer_id IN",
             "<foreach item='item' index='index' collection='customerIds'",
             "open='(' separator=',' close=')'>",
             "#{item}",
@@ -38,20 +38,20 @@ public interface OrderMapper {
             "</script>"})
     List<Long> getInquires(@Param("providerId") final Long providerId, @Param("customerIds") long[] customerIds);
 
-//    @Select("SELECT i.customer_id FROM inquiries AS i WHERE provider_id = #{providerId} AND i.read=1 AND customer_id IN (#{customerIds}) ;")
+//    @Select("SELECT i.customer_id FROM inquiries AS i WHERE providerId = #{providerId} AND i.read=1 AND customer_id IN (#{customerIds}) ;")
 //    List<Long> getInquires(@Param("providerId") final Long providerId, @Param("customerIds") final List<Long> customerIds);
 
     @Select("SELECT os.id, cr.customer_id " +
             "FROM chatroom AS cr INNER JOIN order_sheet AS os ON cr.chatroom_code=os.chatroom_code " +
             "INNER JOIN order_management AS om ON os.id = om.order_id " +
             "INNER JOIN order_detail AS od ON os.id = od.order_id " +
-            "WHERE cr.provider_id = #{providerId} AND om.pickup_date LIKE #{pickupDate} GROUP BY od.order_id;")
+            "WHERE cr.providerId = #{providerId} AND om.pickup_date LIKE #{pickupDate} GROUP BY od.order_id;")
     List<OrderManageShortResDto> getOrderShort(@Param("providerId") final Long providerId, @Param("pickupDate") final String pickupDate);
 
     @Select("SELECT om.order_id, om.pickup_date, om.pickup_time, om.require_wrapping, om.order_status, om.reg_date " +
             "FROM chatroom AS cr INNER JOIN order_sheet AS os ON cr.chatroom_code = os.chatroom_code " +
             "INNER JOIN order_management AS om ON os.id = om.order_id " +
-            "WHERE id = #{orderId} AND cr.provider_id = #{providerId};")
+            "WHERE id = #{orderId} AND cr.providerId = #{providerId};")
     Optional<OrderManagementMapperDto> findByOrderIdWithProviderCheck(@Param("providerId") final Long providerId, @Param("orderId") final Long orderId);
 
 }

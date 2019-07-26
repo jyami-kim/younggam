@@ -29,6 +29,6 @@ public class TodayProduct {
     private String regDate;
 
     @NotNull
-    @Column(name = "provider_id")
+    @Column(name = "providerId")
     private Long providerId;
 }

@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.younggam.morethanchat.utils.ResponseMessage.INVALIDE_JSON_PARSING_TYPE;
+import static com.younggam.morethanchat.utils.ResponseMessage.INVALID_JSON_PARSING_TYPE;
 
 public class TypeConverter {
     private static DateTimeFormatter allFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
@@ -29,7 +29,7 @@ public class TypeConverter {
             return objectMapper.readValue(objectString, StoreBasicInfoReqDto.class);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new NotValidateTypeException(INVALIDE_JSON_PARSING_TYPE);
+            throw new NotValidateTypeException(INVALID_JSON_PARSING_TYPE);
         }
     }
 
@@ -39,7 +39,7 @@ public class TypeConverter {
             return objectMapper.readValue(objectString, ProductSaveReqDto.class);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new NotValidateTypeException(INVALIDE_JSON_PARSING_TYPE);
+            throw new NotValidateTypeException(INVALID_JSON_PARSING_TYPE);
         }
     }
 

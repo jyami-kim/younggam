@@ -19,8 +19,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.younggam.morethanchat.dto.product.ProductSaveReqDto.DEFAULT_IMAGE;
-import static com.younggam.morethanchat.utils.ResponseMessage.NOT_FOUND_PRODUCT;
-import static com.younggam.morethanchat.utils.ResponseMessage.NOT_FOUND_TODAY_PRODUCT;
+import static com.younggam.morethanchat.utils.ResponseMessage.*;
 
 @RequiredArgsConstructor
 @Service
@@ -85,7 +84,7 @@ public class ProductService {
     public List<ProductResDto> getTodayStoreProduct(Long productId, String searchDate) {
         List<Product> products = productMapper.findByTodayProduct(productId, searchDate);
         if(products.isEmpty())
-            throw new NotFoundException(NOT_FOUND_TODAY_PRODUCT);
+            throw new NotFoundException(NOT_FOUND_CHAT_MESSAGE);
 
         return products.stream()
                 .map(ProductResDto::new)

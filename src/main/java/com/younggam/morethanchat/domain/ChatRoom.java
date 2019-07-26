@@ -21,7 +21,7 @@ public class ChatRoom {
     @Column(unique = true, name = "customer_id")
     private Long customerId;
     @NotNull
-    @Column(name = "provider_id")
+    @Column(name = "providerId")
     private Long providerId;
     @NotNull
     @Column(name = "reg_date")

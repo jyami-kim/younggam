@@ -16,7 +16,7 @@ public class PaymentService {
     @NotNull
     private Long id;
     @NotNull
-    @Column(name = "provider_id")
+    @Column(name = "providerId")
     private Long providerId;
     @NotNull
     @Column(name = "store_type")

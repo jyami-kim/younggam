@@ -15,7 +15,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name= "provider_id")
+    @Column(name= "providerId")
 
     private ProviderUser providerId;
 

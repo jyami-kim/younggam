@@ -36,15 +36,18 @@ public class ResponseMessage {
      * JSON 파싱 관련
      */
 
-    public static final String INVALIDE_JSON_PARSING_TYPE = "올바르지 않은 JSON 타입입니다. 파싱에 실패했습니다";
+    public static final String INVALID_JSON_PARSING_TYPE = "올바르지 않은 JSON 타입입니다. 파싱에 실패했습니다";
 
     /**
      * chatBot 관련
      */
 
-    public static final String CHATBOT_CATEGORY_IS_NOT_VALID = "지정한 카테고리가 올바르지 않은 값입니다.";
+    public static final String INVALID_CATEGORY_TYPE = "지정한 카테고리가 올바르지 않은 값입니다.";
     public static final String SAVE_CHATBOT_MESSAGE = "챗봇메세지를 등록하였습니다.";
     public static final String NOT_FOUND_CHATBOT = "해당하는 챗봇이 없습니다.";
+    public static final String NOT_FOUND_CHAT_MESSAGE = "해당 카테고리의 챗봇 메시지가 없습니다 등록해주세요";
+
+
     /**
      * chatMessage 관련
      */
@@ -54,6 +57,7 @@ public class ResponseMessage {
     public static final String NOT_ACCESS_CHAT_MESSAGE = "접근 할 수 없는 챗봇 메시지 입니다.";
     public static final String NOT_ACCESS_CHAT_MESSAGE_CUSTOMER = "챗봇 코드와 customerId가 일치하지 않음";
     public static final String IS_EMPTY_INQUIRE = "답변할 문의사항이 없습니다";
+
     /**
      * Products 관련
      */

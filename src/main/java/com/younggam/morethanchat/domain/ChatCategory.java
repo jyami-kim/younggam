@@ -1,53 +1,43 @@
 package com.younggam.morethanchat.domain;
 
-import com.younggam.morethanchat.exception.NotFoundException;
+import com.younggam.morethanchat.exception.NotValidateTypeException;
+import com.younggam.morethanchat.utils.ResponseMessage;
 
 import java.util.Arrays;
-
-import static com.younggam.morethanchat.utils.ResponseMessage.CHATBOT_CATEGORY_IS_NOT_VALID;
+import java.util.List;
 
 public enum ChatCategory {
-    /* <예약받기> */
-    RHI("R-hi"), //인사말
-    RDW("R-dw"), //예약일 받기
-    ROR("R-or"), //주문받기
-    RNA("R-na"), //이름받기
-    RCO("R-co"), //연락처받기
-    RTW("R-tw"), //수령시간받기
-    RPA("R-pa"), //결제방법받기
-    RP1("R-p1"), //결제옵션별안내-현장결제
-    RP2("R-p2"), //결제옵션별안내-계좌이체
-    RPN("R-pn"), //입금자이름받기
-    RCH("R-ch"), //문의사항확인
-    RBY("R-by"), //끝인사
-    /* <예약 수정/취소> */
-    MNA("M-na"), //이름받기
-    MCO("M-co"), //연락처받기
-    MOR("M-or"), //주문선택받기
-    MCH("M-ch"), //변경사항받기
-    MBY("M-by"), //완료메시지
-    /*<문의하기>*/
-    ACH("A-ch"), //문의사항확인
-    AI1("A-i1"), //포장/보냉안내
-    AI2("A-i2"), //포장/보냉신청안내
-    AMO("A-mo"); //기타문의받기
+    RESERVE_1(3, Arrays.asList(
+            new ChatType("R-hi", "안녕하세요! 체시입니다. 무엇을 도와드릴까요?"), //인사말
+            new ChatType("R-dw", "예약한 날짜를 입력해주세요"), //예약일 받기
+            new ChatType("R-or", "주문할 메뉴와 개수를 선택해주세요"))); //주문받기
+//    RESERVE_2(Arrays.asList("R-na", "R-co", "R-pa")), //이름받기    //연락처받기 //결제방법받기
+//    RESERVE_EDIT(Arrays.asList("M-na", "M-or", "M-ch", "M-by")), //이름받기 & 연락처 받기 //주문선택받기 //변경사항받기 //완료메시지
+//    QUESTION(Arrays.asList("A-ch", "A-i1", "A-i2", "A-mo")); //문의사항확인   //포장/보냉안내   //포장/보냉신청안내     //기타문의받기
 
-    private String categoryType;
+    private int size;
+    private List<ChatType> categoryTypes;
 
-    ChatCategory(String categoryType) {
-        this.categoryType = categoryType;
+    ChatCategory(int size, List<ChatType> categoryTypes) {
+        this.size = size;
+        this.categoryTypes = categoryTypes;
     }
 
-    public static ChatCategory find(String category) {
-        return Arrays.stream(ChatCategory.values())
-                .filter(p -> p.categoryType.equals(category))
-                .findAny()
-                .orElseThrow(() -> new NotFoundException(CHATBOT_CATEGORY_IS_NOT_VALID));
+    public ChatType findByCategory(String category, ChatCategory chatCategory) {
+        return chatCategory.getCategoryTypes().stream()
+                .filter(x -> x.getCategory().equals(category))
+                .findFirst()
+                .orElseThrow(() -> new NotValidateTypeException(ResponseMessage.INVALID_CATEGORY_TYPE));
     }
 
-    public String getCategoryType() {
-        return categoryType;
+    public int getSize(){
+        return this.size;
     }
+
+    public List<ChatType> getCategoryTypes() {
+        return this.categoryTypes;
+    }
+
 }
 
 

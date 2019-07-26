@@ -11,7 +11,7 @@ public interface ChatMessageMapper {
     @Select("SELECT * FROM chat_message WHERE chatroom_code LIKE #{chatRoomCode} ORDER BY id ASC;")
     List<ChatMessage> getChatMessages(@Param("chatRoomCode") final String chatRoomCode);
 
-    @Select("SELECT COUNT(*) FROM chatroom WHERE chatroom_code LIKE #{chatRoomCode} AND provider_id = #{providerId};")
+    @Select("SELECT COUNT(*) FROM chatroom WHERE chatroom_code LIKE #{chatRoomCode} AND providerId = #{providerId};")
     Integer canAccessChatBot(@Param("chatRoomCode") final String chatRoomCode, @Param("providerId") final Long providerId);
 
     @Insert("INSERT INTO chat_message(chatroom_code, writer, chat_message, written_date) " +

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 public class Store {
 
     @Id
-    @Column(name = "provider_id")
+    @Column(name = "providerId")
     private Long providerId;
 
     @NotNull

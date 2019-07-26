@@ -18,7 +18,7 @@ public class Inquiries {
     private Long id;
 
     @NotNull
-    @Column(name = "provider_id")
+    @Column(name = "providerId")
     private Long providerId;
 
     @NotNull
