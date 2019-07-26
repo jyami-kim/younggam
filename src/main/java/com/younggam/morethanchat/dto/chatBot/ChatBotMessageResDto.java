@@ -33,14 +33,4 @@ public class ChatBotMessageResDto {
                 .collect(Collectors.toList());
     }
 
-    public List<ChatBot> toDefaultEntity(Long providerId) {
-        return ChatCategory.RESERVE.getCategoryTypes().stream()
-                .map(c -> ChatBot.builder()
-                        .category(c.getCategory())
-                        .message(c.getMessage())
-                        .providerId(providerId)
-                        .build()
-                ).collect(Collectors.toList());
-    }
-
 }

@@ -1,7 +1,7 @@
 package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.PdfDownloaderUser;
-import com.younggam.morethanchat.dto.download.PdfDownloaderUserReqDto;
+import com.younggam.morethanchat.dto.additional.PdfDownloaderUserReqDto;
 import com.younggam.morethanchat.repository.PdfDownloaderUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

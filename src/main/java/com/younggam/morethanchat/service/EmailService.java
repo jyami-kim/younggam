@@ -1,5 +1,5 @@
 package com.younggam.morethanchat.service;
-import com.younggam.morethanchat.dto.mail.MailReqDto;
+import com.younggam.morethanchat.dto.additional.MailReqDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;

@@ -1,4 +1,4 @@
-package com.younggam.morethanchat.dto.download;
+package com.younggam.morethanchat.dto.additional;
 
 import com.younggam.morethanchat.domain.PdfDownloaderUser;
 import lombok.AllArgsConstructor;

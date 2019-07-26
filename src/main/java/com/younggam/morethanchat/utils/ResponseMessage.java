@@ -55,6 +55,7 @@ public class ResponseMessage {
 
     public static final String SAVE_CHAT_BOT_REPLY_SUCCESS = "챗봇 메시지 문의사항 답변 추가 성공";
     public static final String READ_CHAT_MESSAGE_SUCCESS = "챗봇 메시지 읽기 성공";
+    public static final String SAVE_CHAT_MESSAGE_SUCCESS = "챗봇 메시지 반영하기 성공";
     public static final String NOT_ACCESS_CHAT_MESSAGE = "접근 할 수 없는 챗봇 메시지 입니다.";
     public static final String NOT_ACCESS_CHAT_MESSAGE_CUSTOMER = "챗봇 코드와 customerId가 일치하지 않음";
     public static final String IS_EMPTY_INQUIRE = "답변할 문의사항이 없습니다";

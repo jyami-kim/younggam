@@ -1,7 +1,7 @@
 package com.younggam.morethanchat.controller;
 
 import com.younggam.morethanchat.dto.ResponseDto;
-import com.younggam.morethanchat.dto.download.PdfDownloaderUserReqDto;
+import com.younggam.morethanchat.dto.additional.PdfDownloaderUserReqDto;
 import com.younggam.morethanchat.service.DownloadService;
 import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;

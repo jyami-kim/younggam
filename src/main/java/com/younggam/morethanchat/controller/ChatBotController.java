@@ -3,7 +3,9 @@ package com.younggam.morethanchat.controller;
 import com.younggam.morethanchat.domain.ChatCategory;
 import com.younggam.morethanchat.dto.AuthTokenDto;
 import com.younggam.morethanchat.dto.ResponseDto;
+import com.younggam.morethanchat.dto.chatBot.ChatBotMessageReqDto;
 import com.younggam.morethanchat.dto.chatBot.ChatBotMessageResDto;
+import com.younggam.morethanchat.dto.chatBot.ChatBotMessageWithOptionReqDto;
 import com.younggam.morethanchat.dto.chatBot.ChatBotMessageWithOptionResDto;
 import com.younggam.morethanchat.exception.TokenException;
 import com.younggam.morethanchat.service.ChatBotService;
@@ -12,12 +14,9 @@ import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import static com.younggam.morethanchat.utils.ResponseMessage.READ_CHAT_MESSAGE_SUCCESS;
+import static com.younggam.morethanchat.utils.ResponseMessage.*;
 
 @RestController
 @Slf4j
@@ -28,41 +27,47 @@ public class ChatBotController {
     private final ChatBotService chatBotService;
     private final JwtFactory jwtFactory;
 
-
-//    @PostMapping("messageSet") //이건 수정 겸 등록으로 만들어야겠다.
-//    public ResponseDto chatBotMessageSet(AuthTokenDto authTokenDto, @RequestBody ChatBotMessageSaveReqDto chatBotMessageSaveReqDto) {
-//        Long providerId = jwtFactory.getUserId(authTokenDto.getToken())
-//                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
-//        ChatBotMessageSaveResDto chatBotMessageSaveResDto = chatBotService.saveChatBotMessage(providerId, chatBotMessageSaveReqDto);
-//        return ResponseDto.of(HttpStatus.OK, messageCode(SAVE_CHATBOT_MESSAGE, chatBotMessageSaveResDto.getCategory()), chatBotMessageSaveResDto.getId());
-//    }
-
     @GetMapping("reserve")
     public ResponseDto getReserveChatBotMessage(AuthTokenDto authTokenDto) {
         Long providerId = checkAuth(authTokenDto);
         ChatBotMessageResDto chatBotMessageResDto = chatBotService.getChatBotMessage(providerId, ChatCategory.RESERVE);
-        return ResponseDto.of(HttpStatus.OK, READ_CHAT_MESSAGE_SUCCESS, chatBotMessageResDto);
-    }
-//
-//    @PostMapping("reserve")
-//    public ResponseDto saveReserveChatBotMessage(AuthTokenDto authTokenDto){
-//        Long providerId = checkAuth(authTokenDto);
-//        ChatBotMessageResDto chatBotMessageResDto = chatBotService.getChatBotMessage(providerId, ChatCategory.RESERVE);
-//        return ResponseDto.of(HttpStatus.OK, READ_CHAT_MESSAGE_SUCCESS, chatBotMessageResDto);
-//    }
-
-    @GetMapping("reserveEdit")
-    public ResponseDto getReserveEditChatBotMessage(AuthTokenDto authTokenDto) {
-        Long providerId = checkAuth(authTokenDto);
-        ChatBotMessageResDto chatBotMessageResDto = chatBotService.getChatBotMessage(providerId, ChatCategory.RESERVE_EDIT);
-        return ResponseDto.of(HttpStatus.OK, READ_CHAT_MESSAGE_SUCCESS, chatBotMessageResDto);
+        return ResponseDto.of(HttpStatus.OK, messageCode("reserve", READ_CHAT_MESSAGE_SUCCESS), chatBotMessageResDto);
     }
 
-    @GetMapping("question")
-    public ResponseDto getQuestionChatBotMessage(AuthTokenDto authTokenDto) {
+    @PostMapping("reserve")
+    public ResponseDto saveReserveChatBotMessage(AuthTokenDto authTokenDto, @RequestBody ChatBotMessageReqDto chatBotMessageReqDto) {
         Long providerId = checkAuth(authTokenDto);
-        ChatBotMessageWithOptionResDto chatBotQuestionMessage = chatBotService.getChatBotQuestionMessage(providerId);
-        return ResponseDto.of(HttpStatus.OK, READ_CHAT_MESSAGE_SUCCESS, chatBotQuestionMessage);
+        chatBotService.saveChatBotMessage(providerId, chatBotMessageReqDto, ChatCategory.RESERVE);
+        return ResponseDto.of(HttpStatus.OK, messageCode("reserve", SAVE_CHAT_MESSAGE_SUCCESS));
+    }
+
+    @GetMapping("manage")
+    public ResponseDto getManageChatBotMessage(AuthTokenDto authTokenDto) {
+        Long providerId = checkAuth(authTokenDto);
+        ChatBotMessageResDto chatBotMessageResDto = chatBotService.getChatBotMessage(providerId, ChatCategory.MANAGE);
+        return ResponseDto.of(HttpStatus.OK, messageCode("manage", READ_CHAT_MESSAGE_SUCCESS), chatBotMessageResDto);
+    }
+
+    @PostMapping("manage")
+    public ResponseDto saveManageChatBotMessage(AuthTokenDto authTokenDto, @RequestBody ChatBotMessageReqDto chatBotMessageReqDto) {
+        Long providerId = checkAuth(authTokenDto);
+        chatBotService.saveChatBotMessage(providerId, chatBotMessageReqDto, ChatCategory.MANAGE);
+        return ResponseDto.of(HttpStatus.OK, messageCode("manage", SAVE_CHAT_MESSAGE_SUCCESS));
+    }
+
+    @GetMapping("answer")
+    public ResponseDto getAnswerChatBotMessage(AuthTokenDto authTokenDto) {
+        Long providerId = checkAuth(authTokenDto);
+        ChatBotMessageWithOptionResDto chatBotQuestionMessage = chatBotService.getChatBotAnswerMessage(providerId);
+        return ResponseDto.of(HttpStatus.OK, messageCode("answer", READ_CHAT_MESSAGE_SUCCESS), chatBotQuestionMessage);
+    }
+
+    @PostMapping("answer")
+    public ResponseDto saveAnswerChatBotMessage(AuthTokenDto authTokenDto,
+                                                @RequestBody ChatBotMessageWithOptionReqDto chatBotMessageWithOptionReqDto) {
+        Long providerId = checkAuth(authTokenDto);
+        chatBotService.saveChatBotAnswerMessage(providerId, chatBotMessageWithOptionReqDto);
+        return ResponseDto.of(HttpStatus.OK, messageCode("manage", SAVE_CHAT_MESSAGE_SUCCESS));
     }
 
     private Long checkAuth(AuthTokenDto authTokenDto) {

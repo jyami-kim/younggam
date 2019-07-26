@@ -1,4 +1,4 @@
-package com.younggam.morethanchat.dto.notice;
+package com.younggam.morethanchat.dto.additional;
 
 import com.younggam.morethanchat.domain.Notice;
 import lombok.AllArgsConstructor;

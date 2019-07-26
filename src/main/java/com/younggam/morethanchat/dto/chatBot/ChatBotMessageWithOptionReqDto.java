@@ -8,10 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChatBotStoreOptionDto {
-    private boolean cool;
+@NoArgsConstructor
+public class ChatBotMessageWithOptionReqDto {
+
+    private ChatBotMessageReqDto chatBotMessageReqDto;
     private boolean packing;
+    private boolean cold;
+
 }

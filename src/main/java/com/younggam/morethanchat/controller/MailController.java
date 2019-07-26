@@ -1,7 +1,7 @@
 package com.younggam.morethanchat.controller;
 
 import com.younggam.morethanchat.dto.ResponseDto;
-import com.younggam.morethanchat.dto.mail.MailReqDto;
+import com.younggam.morethanchat.dto.additional.MailReqDto;
 import com.younggam.morethanchat.service.EmailService;
 import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;

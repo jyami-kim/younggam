@@ -1,4 +1,4 @@
-package com.younggam.morethanchat.dto.mail;
+package com.younggam.morethanchat.dto.additional;
 
 import com.younggam.morethanchat.utils.TypeConverter;
 import lombok.AllArgsConstructor;

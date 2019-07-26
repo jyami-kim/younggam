@@ -12,4 +12,13 @@ import lombok.extern.slf4j.Slf4j;
 public class ChatType {
     private String category;
     private String message;
+
+    public ChatBot toChatBotEntity(Long providerId){
+        return ChatBot.builder()
+                .providerId(providerId)
+                .message(this.message)
+                .category(this.category)
+                .build();
+
+    }
 }

@@ -1,6 +1,6 @@
 package com.younggam.morethanchat.service;
 
-import com.younggam.morethanchat.dto.notice.NoticeResDto;
+import com.younggam.morethanchat.dto.additional.NoticeResDto;
 import com.younggam.morethanchat.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
