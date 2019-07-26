@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 @Getter
 @Slf4j
-public class ChatBotMessageReserveResDto {
+public class ChatBotMessageResDto {
 
-    private List<ChatType> reserveMessage;
+    private List<ChatType> chatTypes;
 
-    public ChatBotMessageReserveResDto() {
-        this.reserveMessage = ChatCategory.RESERVE_1.getCategoryTypes().stream()
+    public ChatBotMessageResDto(ChatCategory chatCategory) {
+        this.chatTypes = chatCategory.getCategoryTypes().stream()
                 .map(c -> ChatType.builder()
                         .category(c.getCategory())
                         .message(c.getMessage())
@@ -24,8 +24,8 @@ public class ChatBotMessageReserveResDto {
                 .collect(Collectors.toList());
     }
 
-    public ChatBotMessageReserveResDto(List<ChatBot> chatBots) {
-        this.reserveMessage = chatBots.stream()
+    public ChatBotMessageResDto(List<ChatBot> chatBots) {
+        this.chatTypes = chatBots.stream()
                 .map(c -> ChatType.builder()
                         .category(c.getCategory())
                         .message(c.getMessage())
@@ -34,17 +34,13 @@ public class ChatBotMessageReserveResDto {
     }
 
     public List<ChatBot> toDefaultEntity(Long providerId) {
-        return ChatCategory.RESERVE_1.getCategoryTypes().stream()
+        return ChatCategory.RESERVE.getCategoryTypes().stream()
                 .map(c -> ChatBot.builder()
                         .category(c.getCategory())
                         .message(c.getMessage())
                         .providerId(providerId)
                         .build()
                 ).collect(Collectors.toList());
-    }
-
-    private void checkCategoryValid() {
-
     }
 
 }

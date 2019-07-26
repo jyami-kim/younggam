@@ -29,6 +29,7 @@ public class ResponseMessage {
     public static final String ALREADY_EXISTED_STORE = "이미 존재하는 store 입니다.";
     public static final String FIRST_FORMAT_STORE = "처음부터 만들어야하는 store 입니다.";
 
+
     public static final String CHAT_NAME_IS_ALREADY_EXIST = "챗봇 이름이 이미 존재합니다.";
     public static final String CHAT_NAME_IS_UNIQUE = "챗봇 이름을 사용할 수 있습니다.";
 

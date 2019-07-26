@@ -1,6 +1,7 @@
 package com.younggam.morethanchat.mapper;
 
 import com.younggam.morethanchat.domain.ChatBot;
+import com.younggam.morethanchat.dto.chatBot.ChatBotStoreOptionDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -15,18 +16,14 @@ public interface ChatBotMapper {
     Optional<ChatBot> findByCategoryAndProviderUser(@Param("category") final String category, @Param("providerId") final Long providerId);
 
     @Select({"<script>",
-            "SELECT *",
-            "FROM chatbot",
-            "WHERE provider_id = #{providerId} AND category IN",
-            "<foreach item='item' index='index' collection='categories'",
-            "open='(' separator=',' close=')'>",
+            "SELECT * FROM chatbot WHERE provider_id = #{providerId} AND category IN",
+            "<foreach item='item' index='index' collection='categories' open='(' separator=',' close=')'>",
             "#{item}",
             "</foreach>",
             "</script>"})
     List<ChatBot> findByCategoryListAndProviderUser(@Param("providerId") final Long providerId, @Param("categories") String[] categories);
 
+    @Select("SELECT * FROM store WHERE provider_id = #{providerId};")
+    Optional<ChatBotStoreOptionDto> findStoreByProviderId(@Param("providerId") final Long providerId);
 
-//
-//    @Insert("INSERT ")
-//    ChatBot save(@Param("chatBot") final ChatBot chatBot);
 }

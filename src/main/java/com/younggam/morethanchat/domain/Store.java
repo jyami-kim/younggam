@@ -76,4 +76,10 @@ public class Store {
     @Column(name = "bot_image")
     private String botImage;
 
+    @NotNull
+    private boolean packing;
+
+    @NotNull
+    private boolean cool;
+
 }

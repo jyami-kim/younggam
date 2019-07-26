@@ -1,14 +1,11 @@
 package com.younggam.morethanchat.service;
 
-import com.younggam.morethanchat.domain.ProviderUser;
 import com.younggam.morethanchat.domain.Store;
 import com.younggam.morethanchat.dto.store.StoreBasicInfoReqDto;
 import com.younggam.morethanchat.dto.store.StoreBasicInfoResDto;
 import com.younggam.morethanchat.dto.store.StoreBasicInfoSaveResDto;
 import com.younggam.morethanchat.exception.AlreadyUserException;
 import com.younggam.morethanchat.exception.EmptyException;
-import com.younggam.morethanchat.exception.NotFoundException;
-import com.younggam.morethanchat.repository.ProviderUserRepository;
 import com.younggam.morethanchat.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +16,8 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.Random;
 
-import static com.younggam.morethanchat.utils.ResponseMessage.*;
+import static com.younggam.morethanchat.utils.ResponseMessage.CHAT_NAME_IS_ALREADY_EXIST;
+import static com.younggam.morethanchat.utils.ResponseMessage.FIRST_FORMAT_STORE;
 
 @Service
 @RequiredArgsConstructor
