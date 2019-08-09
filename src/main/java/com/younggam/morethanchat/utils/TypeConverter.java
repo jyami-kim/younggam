@@ -23,6 +23,10 @@ public class TypeConverter {
         return LocalDateTime.now().format(dateFormatter);
     }
 
+    public static String getCalculateDate(int month) {
+        return LocalDateTime.now().plusMonths(month).format(allFormatter);
+    }
+
     public static StoreBasicInfoReqDto stringToStoreBasicInfoReqDto(String objectString) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {

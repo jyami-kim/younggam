@@ -6,6 +6,7 @@ import com.younggam.morethanchat.exception.AlreadyUserException;
 import com.younggam.morethanchat.exception.NotFoundException;
 import com.younggam.morethanchat.mapper.ProviderUserMapper;
 import com.younggam.morethanchat.repository.ProviderUserRepository;
+import com.younggam.morethanchat.utils.CheckElement;
 import com.younggam.morethanchat.utils.JwtFactory;
 import com.younggam.morethanchat.utils.ResponseMessage;
 import lombok.RequiredArgsConstructor;
@@ -25,9 +26,11 @@ public class ProviderUserService {
     private final ProviderUserMapper providerUserMapper;
 
     private final JwtFactory jwtFactory;
+    private final CheckElement checkElement;
 
     @Transactional
     public Long createUser(ProviderUserReqDto providerUserReqDto) {
+        checkElement.validEmailType(providerUserReqDto.getEmail());
         ProviderUser providerUser = providerUserReqDto.toEntity();
         checkUserIsAlreadyExisted(providerUserReqDto);
         return setPassword(providerUserReqDto.getPassWd(), providerUser);

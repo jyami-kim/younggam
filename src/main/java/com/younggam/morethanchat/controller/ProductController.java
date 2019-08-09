@@ -36,7 +36,7 @@ public class ProductController {
     public ResponseDto saveProduct(AuthTokenDto authTokenDto,
                                    @RequestPart String productSaveReqDtoString,
                                    @RequestPart(value = "imageFile", required = false) MultipartFile imageFile) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         ProductSaveReqDto productSaveReqDto = stringToProductSaveReqDto(productSaveReqDtoString);
 
         if (imageFile != null)
@@ -54,7 +54,7 @@ public class ProductController {
 
     @GetMapping()
     public ResponseDto getProductList(AuthTokenDto authTokenDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         List<ProductResDto> storeProduct = productService.getStoreProduct(providerId);
         return ResponseDto.of(HttpStatus.OK, READ_PRODUCT_SUCCESS, storeProduct);
     }
@@ -63,26 +63,18 @@ public class ProductController {
     @PostMapping("today")
     public ResponseDto saveAndDeleteTodayProduct(AuthTokenDto authTokenDto,
                                                  @RequestBody TodayProductReqDto todayProductReqDto) {
-        Long providerId = checkAuth(authTokenDto);
-
-        log.info(todayProductReqDto.getProductIds().toString());
-        log.info(todayProductReqDto.getRegDate());
-
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         productService.saveTodayProduct(providerId, todayProductReqDto);
         return ResponseDto.of(HttpStatus.OK, SAVE_TODAY_PRODUCT_SUCCESS);
     }
 
     @GetMapping("today")
     public ResponseDto getTodayProduct(AuthTokenDto authTokenDto, @RequestParam(required = false) String searchDate) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         if (searchDate == null)
             searchDate = getNowDate();
         List<ProductResDto> todayStoreProduct = productService.getTodayStoreProduct(providerId, searchDate);
         return ResponseDto.of(HttpStatus.OK, READ_TODAY_PRODUCT_SUCCESS, todayStoreProduct);
     }
 
-    private Long checkAuth(AuthTokenDto authTokenDto) {
-        return jwtFactory.getUserId(authTokenDto.getToken())
-                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
-    }
 }

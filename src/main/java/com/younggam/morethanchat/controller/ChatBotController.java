@@ -29,35 +29,35 @@ public class ChatBotController {
 
     @GetMapping("reserve")
     public ResponseDto getReserveChatBotMessage(AuthTokenDto authTokenDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         ChatBotMessageResDto chatBotMessageResDto = chatBotService.getChatBotMessage(providerId, ChatCategory.RESERVE);
         return ResponseDto.of(HttpStatus.OK, messageCode("reserve", READ_CHAT_MESSAGE_SUCCESS), chatBotMessageResDto);
     }
 
     @PostMapping("reserve")
     public ResponseDto saveReserveChatBotMessage(AuthTokenDto authTokenDto, @RequestBody ChatBotMessageReqDto chatBotMessageReqDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         chatBotService.saveChatBotMessage(providerId, chatBotMessageReqDto, ChatCategory.RESERVE);
         return ResponseDto.of(HttpStatus.OK, messageCode("reserve", SAVE_CHAT_MESSAGE_SUCCESS));
     }
 
     @GetMapping("manage")
     public ResponseDto getManageChatBotMessage(AuthTokenDto authTokenDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         ChatBotMessageResDto chatBotMessageResDto = chatBotService.getChatBotMessage(providerId, ChatCategory.MANAGE);
         return ResponseDto.of(HttpStatus.OK, messageCode("manage", READ_CHAT_MESSAGE_SUCCESS), chatBotMessageResDto);
     }
 
     @PostMapping("manage")
     public ResponseDto saveManageChatBotMessage(AuthTokenDto authTokenDto, @RequestBody ChatBotMessageReqDto chatBotMessageReqDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         chatBotService.saveChatBotMessage(providerId, chatBotMessageReqDto, ChatCategory.MANAGE);
         return ResponseDto.of(HttpStatus.OK, messageCode("manage", SAVE_CHAT_MESSAGE_SUCCESS));
     }
 
     @GetMapping("answer")
     public ResponseDto getAnswerChatBotMessage(AuthTokenDto authTokenDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         ChatBotMessageWithOptionResDto chatBotQuestionMessage = chatBotService.getChatBotAnswerMessage(providerId);
         return ResponseDto.of(HttpStatus.OK, messageCode("answer", READ_CHAT_MESSAGE_SUCCESS), chatBotQuestionMessage);
     }
@@ -65,14 +65,10 @@ public class ChatBotController {
     @PostMapping("answer")
     public ResponseDto saveAnswerChatBotMessage(AuthTokenDto authTokenDto,
                                                 @RequestBody ChatBotMessageWithOptionReqDto chatBotMessageWithOptionReqDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         chatBotService.saveChatBotAnswerMessage(providerId, chatBotMessageWithOptionReqDto);
         return ResponseDto.of(HttpStatus.OK, messageCode("answer", SAVE_CHAT_MESSAGE_SUCCESS));
     }
 
-    private Long checkAuth(AuthTokenDto authTokenDto) {
-        return jwtFactory.getUserId(authTokenDto.getToken())
-                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
-    }
 
 }

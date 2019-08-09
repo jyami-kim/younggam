@@ -32,7 +32,7 @@ public class StoreController {
 
     @GetMapping("basicInfo")
     public ResponseDto getBasicInformation(AuthTokenDto authTokenDto) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         StoreBasicInfoResDto basicInfo = storeService.getBasicInfo(providerId);
         return ResponseDto.of(HttpStatus.OK, READ_STORE_BASIC_INFO_SUCCESS, basicInfo);
     }
@@ -41,7 +41,7 @@ public class StoreController {
     public ResponseDto saveBasicInformation(AuthTokenDto authTokenDto,
                                             @RequestPart String storeBasicInfoReqDtoString,
                                             @RequestPart(value = "botImageFile", required = false) MultipartFile botImageFile) throws IOException {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         StoreBasicInfoReqDto storeBasicInfoReqDto = stringToStoreBasicInfoReqDto(storeBasicInfoReqDtoString);
 
         if (botImageFile != null)
@@ -54,13 +54,8 @@ public class StoreController {
 
     @GetMapping()
     public ResponseDto checkIfNameExisted(AuthTokenDto authTokenDto, @RequestParam String name) {
-        checkAuth(authTokenDto);
+        jwtFactory.checkAuth(authTokenDto);
         storeService.checkNameIsUnique(name);
         return ResponseDto.of(HttpStatus.OK, CHAT_NAME_IS_UNIQUE);
-    }
-
-    private Long checkAuth(AuthTokenDto authTokenDto) {
-        return jwtFactory.getUserId(authTokenDto.getToken())
-                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
     }
 }

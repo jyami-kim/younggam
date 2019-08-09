@@ -27,7 +27,7 @@ public class OrderController {
 
     @GetMapping("main")
     public ResponseDto<OrderManageResultResDto> getMainOrderList(AuthTokenDto authTokenDto, @RequestParam(required = false) String searchDate) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         if (searchDate == null)
             searchDate = getNowDate();
         OrderManageResultResDto mainOrderResult = orderService.getMainOrderList(providerId, searchDate);
@@ -36,7 +36,7 @@ public class OrderController {
 
     @GetMapping("main/short")
     public ResponseEntity<ResponseDto<OrderManageResultResDto>> getOrderShortest(AuthTokenDto authTokenDto, @RequestParam(required = false) String searchDate) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         if (searchDate == null)
             searchDate = getNowDate();
         OrderManageResultResDto mainOrderResult = orderService.getTodayOrderShort(providerId, searchDate);
@@ -45,14 +45,8 @@ public class OrderController {
 
     @PutMapping("status/{orderId}")
     public ResponseDto<Long> setOrderStatusChange(AuthTokenDto authTokenDto, @PathVariable Long orderId) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         orderId = orderService.updateOrderStatus(orderId, providerId);
         return ResponseDto.of(HttpStatus.OK, UPDATE_ORDER_STATUS_SUCCESS, orderId);
     }
-
-    private Long checkAuth(AuthTokenDto authTokenDto){
-        return jwtFactory.getUserId(authTokenDto.getToken())
-                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
-    }
-
 }

@@ -21,6 +21,9 @@ public class ResponseMessage {
     public static final String NOT_CURRENT_USER = "접근한 유저와 토큰의 유저가 다르다.";
     public static final String INTERNAL_SERVER_ERROR = "서버 내부 에러";
     public static final String DB_ERROR = "데이터베이스 에러";
+
+    public static final String INVALID_EMAIL_FORMAT = "올바르지 않은 email 포맷입니다.";
+
     /**
      * Store 관련
      */
@@ -74,6 +77,14 @@ public class ResponseMessage {
     public static final String READ_TODAY_PRODUCT_SUCCESS = "오늘의 product 리스트 조회 성공";
 
     /**
+     * payment service 관련
+     */
+
+    public static final String INVALID_TOTAL_AMOUNT = "계산된 total payment 값이 올바르지 않습니다";
+    public static final String PAYMENT_SUCCESS = "결제 성공";
+    public static final String INVALID_SELECT = "올바르지 않은 셀렉트 값입니다.";
+
+    /**
      * order 관련
      */
 
@@ -81,14 +92,17 @@ public class ResponseMessage {
     public static final String GET_TODAY_ORDER_SUCCESS = "날짜에 맞는 order 요약 조회 성공";
     public static final String UPDATE_ORDER_STATUS_SUCCESS = "수령 체크 성공";
     public static final String NOT_FOUND_ORDER = "주문을 찾을 수 없습니다.";
+
     /**
      * mail 관련
      */
 
     public static final String SEND_MAIL_SUCCESS = "메일 보내기 성공";
+
     /**
      * notice 관련
      */
+
     public static final String READ_NOTICE_SUCCESS = "공지 읽기 성공";
     /**
      * download 관련

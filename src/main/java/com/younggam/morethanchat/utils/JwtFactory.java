@@ -7,6 +7,7 @@ import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.Verification;
 import com.younggam.morethanchat.domain.ProviderUser;
+import com.younggam.morethanchat.dto.AuthTokenDto;
 import com.younggam.morethanchat.exception.TokenException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,11 @@ public class JwtFactory {
     private long tokenValidMillisecond = 1000L * 60 * 60; // 1시간만 토큰 유효
     private long passwordTokenValidMillisecond = 1000L * 60 * 7; // 7분 토큰 유효
 
+
+    public Long checkAuth(AuthTokenDto authTokenDto) {
+        return getUserId(authTokenDto.getToken())
+                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
+    }
 
     public String generateToken(ProviderUser providerUser) {
         String token;

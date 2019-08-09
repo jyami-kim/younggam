@@ -30,7 +30,7 @@ public class ChatMessageController {
 
     @GetMapping("{chatRoomCode}")
     public ResponseDto chatBotMessageSet(AuthTokenDto authTokenDto, @PathVariable String chatRoomCode) {
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         List<ChatMessageShowResDto> chatMessage = chatMessageService.getChatMessage(providerId, chatRoomCode);
         return ResponseDto.of(HttpStatus.OK, READ_CHAT_MESSAGE_SUCCESS, chatMessage);
     }
@@ -38,15 +38,11 @@ public class ChatMessageController {
     @PostMapping()
     public ResponseDto saveReply(AuthTokenDto authTokenDto, @RequestBody ChatMessageReplyReqDto chatMessageReplyReqDto) {
         chatMessageReplyReqDto.setRegDate(getNowAllDate());
-        Long providerId = checkAuth(authTokenDto);
+        Long providerId = jwtFactory.checkAuth(authTokenDto);
         Long chatReplyMessageId = chatMessageService.saveChatReply(providerId, chatMessageReplyReqDto);
         return ResponseDto.of(HttpStatus.OK, SAVE_CHAT_BOT_REPLY_SUCCESS, chatReplyMessageId);
     }
 
-    private Long checkAuth(AuthTokenDto authTokenDto) {
-        return jwtFactory.getUserId(authTokenDto.getToken())
-                .orElseThrow(() -> new TokenException(ResponseMessage.AUTH));
-    }
 
 
 }
