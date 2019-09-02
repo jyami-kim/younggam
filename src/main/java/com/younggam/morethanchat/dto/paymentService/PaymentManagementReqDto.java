@@ -39,8 +39,15 @@ public class PaymentManagementReqDto {
         int discountRate = PaymentGroupCoupon.findBySelectNum(this.coupon).getDiscountRate();
         int monthMoney = PaymentGroupStoreType.findBySelectNum(this.storeType).getMonthMoney();
 
-        if (monthMoney * month - discountRate != this.totalAmount)
-            throw new NotValidateTypeException(INVALID_TOTAL_AMOUNT);
+
+        /**
+         * 정책에 따라 가격체크 로직
+         */
+
+//        double amount = (monthMoney * month) * (100 - discountRate) * 0.01;
+//
+//        if (amount != this.totalAmount)
+//            throw new NotValidateTypeException(INVALID_TOTAL_AMOUNT);
 
     }
 

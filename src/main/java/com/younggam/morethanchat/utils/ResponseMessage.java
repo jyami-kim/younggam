@@ -82,6 +82,7 @@ public class ResponseMessage {
 
     public static final String INVALID_TOTAL_AMOUNT = "계산된 total payment 값이 올바르지 않습니다";
     public static final String PAYMENT_SUCCESS = "결제 성공";
+    public static final String PAYMENT_CLIENT_SUCCESS = "PG에게 줄 merchant_uid 생성 및 db insert 성공";
     public static final String INVALID_SELECT = "올바르지 않은 셀렉트 값입니다.";
 
     /**
