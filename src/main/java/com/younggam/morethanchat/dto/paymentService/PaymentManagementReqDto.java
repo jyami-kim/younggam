@@ -1,12 +1,9 @@
 package com.younggam.morethanchat.dto.paymentService;
 
 import com.younggam.morethanchat.domain.PaymentManagement;
-import com.younggam.morethanchat.exception.NotValidateTypeException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static com.younggam.morethanchat.utils.ResponseMessage.INVALID_TOTAL_AMOUNT;
-import static com.younggam.morethanchat.utils.TypeConverter.getCalculateDate;
 import static com.younggam.morethanchat.utils.TypeConverter.getNowAllDate;
 
 @AllArgsConstructor
@@ -24,12 +21,12 @@ public class PaymentManagementReqDto {
 
         return PaymentManagement.builder()
                 .providerId(providerId)
+                .coupon(this.coupon)
                 .storeType(this.storeType)
                 .servicePeriod(this.servicePeriod)
-                .totalAmount(this.coupon)
+                .totalAmount(this.totalAmount)
                 .paymentMethod(this.paymentMethod)
-                .payDate(getNowAllDate())
-                .dueDate(getCalculatedDueDate())
+                .regDate(getNowAllDate())
                 .build();
     }
 
@@ -49,10 +46,5 @@ public class PaymentManagementReqDto {
 //        if (amount != this.totalAmount)
 //            throw new NotValidateTypeException(INVALID_TOTAL_AMOUNT);
 
-    }
-
-    private String getCalculatedDueDate() {
-        int month = PaymentGroupServicePeriod.findBySelectNum(this.servicePeriod).getMonth();
-        return getCalculateDate(month);
     }
 }

@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class ImportTokenDto {
+public class ImportTokenReqDto {
     @JsonProperty("access_token")
     private String accessToken;
     private Long now;

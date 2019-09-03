@@ -1,12 +1,11 @@
-package com.younggam.morethanchat.dto.paymentService;
+package com.younggam.morethanchat.dto.paymentService.ImportDefaultRes;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class ImportDefaultResDto {
+public class ImportDefaultResDto{
     private int code;
     private String message;
-    private ImportTokenDto response;
 }

@@ -81,9 +81,11 @@ public class ResponseMessage {
      */
 
     public static final String INVALID_TOTAL_AMOUNT = "계산된 total payment 값이 올바르지 않습니다";
-    public static final String PAYMENT_SUCCESS = "결제 성공";
+    public static final String PAYMENT_SUCCESS = "일반 결제 성공";
     public static final String PAYMENT_CLIENT_SUCCESS = "PG에게 줄 merchant_uid 생성 및 db insert 성공";
     public static final String INVALID_SELECT = "올바르지 않은 셀렉트 값입니다.";
+    public static final String PAYMENT_FORGERY_MODULATION = "PG에게 넘겨준 결제정보와, 서버에 저장된 결제정보가 다릅니다. (위 변조 확인)";
+    public static final String NOT_SAVING_MORETHAN_PAYMENT = "서버에 저장되지 않은 결제정보, morethan 고객센터에 연락하세요";
 
     /**
      * order 관련

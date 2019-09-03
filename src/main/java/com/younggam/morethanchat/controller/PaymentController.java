@@ -38,8 +38,6 @@ public class PaymentController {
         log.info("get Imp Uid {}", paymentSubmitReqDto.getImpUid());
         log.info("get merchant Uid {}", paymentSubmitReqDto.getMerchantUid());
 
-        paymentManagementService.savePaymentSuccess(paymentSubmitReqDto);
-
-        return ResponseDto.of(HttpStatus.OK, PAYMENT_SUCCESS);
+        return paymentManagementService.savePaymentSuccess(paymentSubmitReqDto);
     }
 }

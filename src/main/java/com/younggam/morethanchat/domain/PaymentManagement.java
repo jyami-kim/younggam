@@ -1,9 +1,6 @@
 package com.younggam.morethanchat.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,8 +14,8 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class PaymentManagement {
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(unique = true)
     private String id;
 
@@ -35,17 +32,24 @@ public class PaymentManagement {
     private int servicePeriod;
 
     @NotNull
+    private int coupon;
+
+    @NotNull
     @Column(name = "total_amount")
     private int totalAmount;
 
     @Column(name = "payment_method")
     private String paymentMethod;
 
-    @NotNull
+    @Setter
     @Column(name = "pay_date")
     private String payDate;
 
     @NotNull
+    @Column(name = "reg_date")
+    private String regDate;
+
+    @Setter
     @Column(name = "due_date")
     private String dueDate;
 }

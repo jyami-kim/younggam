@@ -1,22 +1,22 @@
 package com.younggam.morethanchat.service;
 
 import com.younggam.morethanchat.domain.PaymentManagement;
-import com.younggam.morethanchat.dto.paymentService.ImPortInfoDto;
-import com.younggam.morethanchat.dto.paymentService.ImportDefaultResDto;
-import com.younggam.morethanchat.dto.paymentService.PaymentManagementReqDto;
-import com.younggam.morethanchat.dto.paymentService.PaymentSubmitReqDto;
+import com.younggam.morethanchat.dto.ResponseDto;
+import com.younggam.morethanchat.dto.paymentService.*;
+import com.younggam.morethanchat.dto.paymentService.ImportDefaultRes.ImportPaymentDefaultReqDto;
+import com.younggam.morethanchat.dto.paymentService.ImportDefaultRes.ImportTokenDefaultResDto;
+import com.younggam.morethanchat.exception.NotAccessException;
 import com.younggam.morethanchat.repository.PaymentManagementRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Map;
+import static com.younggam.morethanchat.utils.ResponseMessage.*;
+import static com.younggam.morethanchat.utils.TypeConverter.getCalculateDate;
+import static com.younggam.morethanchat.utils.TypeConverter.getNowAllDate;
 
 @Slf4j
 @Service
@@ -39,21 +39,57 @@ public class PaymentManagementService {
         return paymentManagement.getId();
     }
 
-
-    public void savePaymentSuccess(PaymentSubmitReqDto submitReqDto) {
+    public ResponseDto savePaymentSuccess(PaymentSubmitReqDto submitReqDto) {
         String accessToken = getAccessToken();
-        log.info(accessToken);
-        getPaymentDataFromImport(submitReqDto, accessToken);
+
+        ImportPaymentReqDto paymentDataFromImport = getPaymentDataFromImport(submitReqDto, accessToken);
+        PaymentManagement paymentManagement = paymentManagementRepository.findById(submitReqDto.getMerchantUid())
+                .orElseThrow(() -> new NotAccessException(NOT_SAVING_MORETHAN_PAYMENT));
+
+        int moreThanServerAmount = paymentManagement.getTotalAmount();
+        int importPaymentAmount = paymentDataFromImport.getAmount();
+
+        if (moreThanServerAmount == importPaymentAmount) {
+
+            paymentManagement.setPayDate(getNowAllDate());
+            paymentManagement.setDueDate(getCalculatedDueDate(paymentManagement.getServicePeriod()));
+            paymentManagementRepository.save(paymentManagement);
+
+            return afterPayment(paymentDataFromImport);
+
+        } else {
+            throw new NotAccessException(PAYMENT_FORGERY_MODULATION);
+        }
+
+    }
+
+    private ResponseDto afterPayment(ImportPaymentReqDto paymentDataFromImport) {
+        switch (paymentDataFromImport.getStatus()) {
+            case "ready": // 가상계좌발급
+//                vbank_num, vbank_date, vbank_name
+                return ResponseDto.of(HttpStatus.NOT_ACCEPTABLE, "현재 가상계좌 결제가 불가능합니다");
+
+            case "paid": // 결제완료
+                return ResponseDto.of(HttpStatus.OK, PAYMENT_SUCCESS);
+        }
+        return ResponseDto.FAIL_DEFAULT_RES;
+    }
+
+
+    private String getCalculatedDueDate(int servicePeriod) {
+        int month = PaymentGroupServicePeriod.findBySelectNum(servicePeriod).getMonth();
+        return getCalculateDate(month);
     }
 
     private String getAccessToken() {
-        ImportDefaultResDto importTokenDto = restTemplate.postForObject(importTokenURL, imPortInfoDto, ImportDefaultResDto.class);
+        ImportTokenDefaultResDto importTokenDto =
+                restTemplate.postForObject(importTokenURL, imPortInfoDto, ImportTokenDefaultResDto.class);
         ResponseEntity<String> entity = restTemplate.postForEntity(importTokenURL, imPortInfoDto, String.class);
         log.info(entity.toString());
         return importTokenDto.getResponse().getAccessToken();
     }
 
-    private void getPaymentDataFromImport(PaymentSubmitReqDto submitReqDto, String accessToken) {
+    private ImportPaymentReqDto getPaymentDataFromImport(PaymentSubmitReqDto submitReqDto, String accessToken) {
 
         String impUid = submitReqDto.getImpUid();
         log.info(impUid);
@@ -63,14 +99,11 @@ public class PaymentManagementService {
         headers.set(HttpHeaders.CONTENT_TYPE, "application/json");
 
         HttpEntity<String> request = new HttpEntity<>(headers);
-//        ResponseEntity<String> forEntity = restTemplate.getForObject(importPaymentsURL + "/" + accessToken, String.class);
 
-        ResponseEntity<Map> response = restTemplate.exchange(
-                importPaymentsURL + impUid, HttpMethod.GET, request, Map.class);
+        ResponseEntity<ImportPaymentDefaultReqDto> payment = restTemplate.exchange(
+                importPaymentsURL + impUid, HttpMethod.GET, request, ImportPaymentDefaultReqDto.class);
 
-        System.out.println(response.getBody());
-
-        log.info(response.toString());
+        return payment.getBody().getResponse();
     }
 
 }
