@@ -2,7 +2,9 @@ package com.younggam.morethanchat.domain;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -13,7 +15,7 @@ import javax.validation.constraints.NotNull;
 public class Store {
 
     @Id
-    @Column(name = "providerId")
+    @Column(name = "provider_id")
     private Long providerId;
 
     @NotNull
@@ -29,6 +31,7 @@ public class Store {
 
     private String address;
 
+    @Setter
     @Column(name = "detailed_address")
     private String detailedAddress;
 
@@ -52,29 +55,24 @@ public class Store {
     @Column(name = "early_reservation")
     private boolean earlyReservation;
 
-
-    private String latitude;
-
-    private String longitude;
-
     @NotNull
     @Setter
     @Column(name = "reg_date")
     private String regDate;
-
 
     @Column(name = "bot_id", unique = true)
     private String botId;
 
     @Setter
     @NotNull
-    @Column(name = "bot_intro")
-    private String botIntro;
+    @Column(name = "start_time")
+    private String startTime;
 
     @Setter
     @NotNull
-    @Column(name = "bot_image")
-    private String botImage;
+    @Column(name = "end_time")
+    private String endTime;
+
 
     @Setter
     @NotNull
