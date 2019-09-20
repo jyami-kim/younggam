@@ -73,7 +73,6 @@ public class Store {
     @Column(name = "end_time")
     private String endTime;
 
-
     @Setter
     @NotNull
     private boolean packing;
@@ -81,5 +80,9 @@ public class Store {
     @Setter
     @NotNull
     private boolean cool;
+
+    @Setter
+    @Column(name="cool_packing_message")
+    private String coolPackingMessage;
 
 }

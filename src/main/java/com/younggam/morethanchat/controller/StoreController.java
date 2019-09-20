@@ -44,7 +44,6 @@ public class StoreController {
         restDateService.deleteRestDate(storeBasicInfoReqDto);
         restDateService.saveRestDate(providerId, storeBasicInfoReqDto);
 
-
         return ResponseDto.of(HttpStatus.OK, SAVE_STORE_BASIC_INFO, storeProviderId);
     }
 

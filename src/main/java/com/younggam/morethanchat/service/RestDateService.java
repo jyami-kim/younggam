@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 public class RestDateService {
     private final RestDateRepository restDateRepository;
-    private final RestDateMapper restDateMapper;
+//    private final RestDateMapper restDateMapper;
 
     @Transactional
     public void saveRestDate(Long providerId, StoreBasicInfoReqDto storeBasicInfoReqDto) {

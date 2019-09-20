@@ -27,15 +27,24 @@ public class ResponseMessage {
     /**
      * Store 관련
      */
+
     public static final String READ_STORE_BASIC_INFO_SUCCESS = "store의 기본정보 조회 성공";
     public static final String SAVE_STORE_BASIC_INFO = "store의 기본정보 저장 완료";
     public static final String READ_STORE_REST_DATE_SUCCESS = "store의 Rest date 기본정보 조회 성공 ";
     public static final String ALREADY_EXISTED_STORE = "이미 존재하는 store 입니다.";
     public static final String FIRST_FORMAT_STORE = "처음부터 만들어야하는 store 입니다.";
-
+    public static final String NOT_FOUND_STORE = "store 기본정보 부터 등록해주세요";
 
     public static final String CHAT_NAME_IS_ALREADY_EXIST = "챗봇 이름이 이미 존재합니다.";
     public static final String CHAT_NAME_IS_UNIQUE = "챗봇 이름을 사용할 수 있습니다.";
+
+    /**
+     * ReservationDetail 관련
+     */
+    public static final String NOT_FOUND_RESERVATION_DETAIL = "이전에 등록된 상세 예약 정보가 없습니다.";
+    public static final String SAVE_RESERVATION_DETAIL = "상세 예약 정보 등록 성공";
+    public static final String READ_RESERVATION_DETAIL = "상세 예약 정보 조회 성공";
+
 
     /**
      * JSON 파싱 관련
@@ -97,6 +106,9 @@ public class ResponseMessage {
     public static final String UPDATE_ORDER_STATUS_SUCCESS = "수령 체크 성공";
     public static final String NOT_FOUND_ORDER = "주문을 찾을 수 없습니다.";
 
+
+
+
     /**
      * mail 관련
      */
@@ -108,6 +120,7 @@ public class ResponseMessage {
      */
 
     public static final String READ_NOTICE_SUCCESS = "공지 읽기 성공";
+
     /**
      * download 관련
      */
