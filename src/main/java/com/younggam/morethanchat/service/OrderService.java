@@ -48,7 +48,7 @@ public class OrderService {
         }
 
         List<Long> inquires = new ArrayList<>();
-        if (inquiresCustomerId[0] != 0) {
+        if (inquiresCustomerId.length != 0) {
             inquires = orderMapper.getInquires(providerId, inquiresCustomerId);
         }
 
